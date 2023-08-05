@@ -1,0 +1,22 @@
+from config.conexion_bd import base_de_datos
+from sqlalchemy import Column, types, orm
+
+class AlumnoModel(base_de_datos.Model):
+    __tablename__ = 'TB_ALUMNO'
+    alumnoId = Column(name='ID', primary_key=True, autoincrement=True, unique=True, type_=types.Integer, nullable=False)
+    alumnoMatricula = Column(name='MATRICULA', unique=True, type_=types.String(length=45), nullable=False)
+    alumnoNombre = Column(name='NOMBRE', type_=types.String(length=45))
+    alumnoApellido = Column(name='APELLIDO', type_=types.String(length=45))
+    alumnoDireccion = Column(name='DIRECCION', type_=types.String(length=200))
+    alumnoPais = Column(name='PAIS', type_=types.String(length=200))
+    alumnoFechaNacimiento = Column(name='FECHA_NACIMIENTO', type_=types.Date)
+
+    alumnos = orm.relationship('AlumnoCursoModel', backref='acAlumno', lazy=True)
+
+    def __init__(self, matricula, nombre, apellido, direccion, pais, fecha_nacimiento):
+        self.alumnoMatricula = matricula
+        self.alumnoNombre = nombre
+        self.alumnoApellido = apellido
+        self.alumnoDireccion = direccion
+        self.alumnoPais = pais
+        self.alumnoFechaNacimiento = fecha_nacimiento
