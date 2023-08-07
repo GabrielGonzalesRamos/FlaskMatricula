@@ -11,12 +11,28 @@ class AlumnoModel(base_de_datos.Model):
     alumnoPais = Column(name='PAIS', type_=types.String(length=200))
     alumnoFechaNacimiento = Column(name='FECHA_NACIMIENTO', type_=types.Date)
 
-    alumnos = orm.relationship('AlumnoCursoModel', backref='acAlumno', lazy=True)
+    alumnoMatriculados = orm.relationship('AlumnoCursoModel', backref='registroAlumno', lazy=True)
 
-    def __init__(self, matricula, nombre, apellido, direccion, pais, fecha_nacimiento):
-        self.alumnoMatricula = matricula
+    def __init__(self, nombre, apellido, direccion, pais, fecha_nacimiento, matricula):
         self.alumnoNombre = nombre
         self.alumnoApellido = apellido
         self.alumnoDireccion = direccion
         self.alumnoPais = pais
         self.alumnoFechaNacimiento = fecha_nacimiento
+        self.alumnoMatricula = matricula
+    
+    def save(self):
+        base_de_datos.session.add(self)
+        base_de_datos.session.commit()
+
+    
+    def json(self):
+        return {
+            'id': self.alumnoId,
+            'matricula': self.alumnoMatricula,
+            'nombre': self.alumnoNombre,
+            'apellido': self.alumnoApellido,
+            'direccion': self.alumnoDireccion,
+            'pais': self.alumnoPais,
+            'fecha_nacimiento': self.alumnoFechaNacimiento.strftime('%Y-%m-%d')
+        }
