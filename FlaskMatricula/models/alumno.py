@@ -1,6 +1,7 @@
 from config.conexion_bd import base_de_datos
 from sqlalchemy import Column, types, orm
 
+
 class AlumnoModel(base_de_datos.Model):
     __tablename__ = 'TB_ALUMNO'
     alumnoId = Column(name='ID', primary_key=True, autoincrement=True, unique=True, type_=types.Integer, nullable=False)
@@ -20,7 +21,9 @@ class AlumnoModel(base_de_datos.Model):
         self.alumnoPais = pais
         self.alumnoFechaNacimiento = fecha_nacimiento
         self.alumnoMatricula = matricula
-    
+
+
+
     def save(self):
         base_de_datos.session.add(self)
         base_de_datos.session.commit()
@@ -29,7 +32,7 @@ class AlumnoModel(base_de_datos.Model):
     def json(self):
         return {
             'id': self.alumnoId,
-            'matricula': self.alumnoMatricula,
+            'matricula': str(self.alumnoMatricula),
             'nombre': self.alumnoNombre,
             'apellido': self.alumnoApellido,
             'direccion': self.alumnoDireccion,
