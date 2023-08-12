@@ -12,7 +12,7 @@ class AlumnoModel(base_de_datos.Model):
     alumnoPais = Column(name='PAIS', type_=types.String(length=200))
     alumnoFechaNacimiento = Column(name='FECHA_NACIMIENTO', type_=types.Date)
 
-    alumnoMatriculados = orm.relationship('AlumnoCursoModel', backref='registroAlumno', lazy=True)
+    alumnoMatriculados = orm.relationship('AlumnoCursoModel', backref='registroAlumno', lazy=True, cascade='all, delete-orphan')
 
     def __init__(self, nombre, apellido, direccion, pais, fecha_nacimiento, matricula):
         self.alumnoNombre = nombre
@@ -22,17 +22,18 @@ class AlumnoModel(base_de_datos.Model):
         self.alumnoFechaNacimiento = fecha_nacimiento
         self.alumnoMatricula = matricula
 
-
-
     def save(self):
         base_de_datos.session.add(self)
         base_de_datos.session.commit()
-
+    
+    def delete(self):
+        base_de_datos.session.delete(self)
+        base_de_datos.session.commit()
     
     def json(self):
         return {
             'id': self.alumnoId,
-            'matricula': str(self.alumnoMatricula),
+            'matricula': self.alumnoMatricula,
             'nombre': self.alumnoNombre,
             'apellido': self.alumnoApellido,
             'direccion': self.alumnoDireccion,

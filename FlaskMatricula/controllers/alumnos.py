@@ -1,51 +1,11 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 from models.alumno import AlumnoModel
-from config.conexion_bd import base_de_datos
 from uuid import uuid4
-from datetime import datetime
+from serializers.serializerAlumnos import serializerAlumnos, serializerBusqueda
 import copy
 
-serializerAlumnos = reqparse.RequestParser(bundle_errors=True)
-
-serializerAlumnos.add_argument(
-    'nombre',
-    type=str,
-    required=True,
-    help='Nombre del alumno obligatorio',
-    location='json'
-)
-serializerAlumnos.add_argument(
-    'apellido',
-    type=str,
-    required=True,
-    help='Apellido del alumno obligatorio',
-    location='json'
-)
-serializerAlumnos.add_argument(
-    'direccion',
-    type=str,
-    required=True,
-    help='Dirección del alumno obligatorio',
-    location='json'
-)
-serializerAlumnos.add_argument(
-    'pais',
-    type=str,
-    required=True,
-    choices=('Mexico', 'Chile', 'Colombia', 'Argentina', 'Peru'),
-    help='Pais del alumno obligatorio o pais válido',
-    location='json'
-)
-serializerAlumnos.add_argument(
-    'fecha_nacimiento',
-    type=lambda x: datetime.strptime(x,"%Y-%m-%d"),
-    required=True,
-    help='Fecha de nacimiento del alumno obligatorio',
-    location='json'
-)
-
-
 class AlumnosController(Resource):
+
     def get(self):
         alumnos = AlumnoModel.query.all()
         lista_alumnos = []
@@ -75,6 +35,7 @@ class AlumnosController(Resource):
                 }, 203
 
 class AlumnoController(Resource):
+
     def get(self, id):
         alumno = AlumnoModel.query.filter_by(alumnoId=id).first()
         return (
@@ -114,15 +75,9 @@ class AlumnoController(Resource):
 
     def delete(self, id):
         alumno = AlumnoModel.query.filter_by(alumnoId=id)
-        print(alumno)
-        # https://docs.sqlalchemy.org/en/14/orm/query.html
-        # Se usa session seguido del método query debido a que SQLALCHEMY lo admite
-        # En FLASKSQLALCHEMY solo es necesario el Model seguido del método query
-        # base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=id).first().__dict__
         if alumno.first():
             alumno_viejo = copy.deepcopy(alumno.first())
-            alumno.delete()
-            base_de_datos.session.commit()
+            alumno.first().delete()
             return {
                 'success': True,
                 'content': [alumno_viejo.json()],
@@ -134,6 +89,9 @@ class AlumnoController(Resource):
                 'content': None,
                 'message': 'Alumno eliminado o no existe'
             }, 404
+
+
+    
 
         
 
