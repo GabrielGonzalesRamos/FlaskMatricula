@@ -2,6 +2,7 @@ from flask_restful import Resource
 from models.alumno import AlumnoModel
 from uuid import uuid4
 from serializers.serializerAlumnos import serializerAlumnos, serializerBusqueda
+from config.conexion_bd import base_de_datos
 import copy
 
 class AlumnosController(Resource):
@@ -13,8 +14,8 @@ class AlumnosController(Resource):
             lista_alumnos.append(i.json())
         return {
             'success': True,
-            'content': lista_alumnos,
-            'message': None
+            'message': 'Cantidad total de alumnos {}'.format(AlumnoModel.query.count()),
+            'content': lista_alumnos
         }, 200
         
     def post(self):
@@ -90,11 +91,36 @@ class AlumnoController(Resource):
                 'message': 'Alumno eliminado o no existe'
             }, 404
 
+class BusquedaAlumnos(Resource):
+    def get(self):
+        data = serializerBusqueda.parse_args()
 
-    
+        filters = []
 
-        
+        if data.get('nombre'):
+            filters.append(AlumnoModel.alumnoNombre == data.get('nombre'))
+        if data.get('apellido'):
+            filters.append(AlumnoModel.alumnoApellido == data.get('apellido'))
+        if data.get('pais'):
+            filters.append(AlumnoModel.alumnoPais == data.get('pais'))
+
+        resultado = AlumnoModel.query.filter(*filters).all()
+
+        if bool(resultado):
+            return {
+                'success': True,
+                'content': [i.json() for i in resultado],
+                'message': 'Se encontraron {} coincidencias'.format(AlumnoModel.query.filter(*filters).count())
+            }
+        else: 
+            return {
+                'success': False,
+                'content': None,
+                'message': 'Se encontraron 0 coincidencias'
+            }
 
 
-            
+
+
+
 

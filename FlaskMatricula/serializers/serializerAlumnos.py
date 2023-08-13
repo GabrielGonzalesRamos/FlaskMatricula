@@ -43,8 +43,22 @@ serializerAlumnos.add_argument(
 serializerBusqueda = reqparse.RequestParser(bundle_errors=True)
 
 serializerBusqueda.add_argument(
-        'nombre',
-        type=str,
-        location='args',
-        required=False
-    )
+    'nombre',
+    type=str,
+    location='args',
+    required=False
+)
+serializerBusqueda.add_argument(
+    'apellido',
+    type=str,
+    location='args',
+    required=False
+)
+serializerBusqueda.add_argument(
+    'pais',
+    type=str,
+    location='args',
+    required=False,
+    choices=('Mexico', 'Chile', 'Colombia', 'Argentina', 'Peru'),
+    help='Pais invalido'
+)
