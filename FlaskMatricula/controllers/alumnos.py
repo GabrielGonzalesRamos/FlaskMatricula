@@ -3,6 +3,7 @@ from models.alumno import AlumnoModel
 from uuid import uuid4
 from serializers.serializerAlumnos import serializerAlumnos, serializerBusqueda
 from config.conexion_bd import base_de_datos
+from sqlalchemy import and_
 import copy
 
 class AlumnosController(Resource):
@@ -113,11 +114,11 @@ class BusquedaAlumnos(Resource):
         filters = []
         
         if data.get('nombre'):
-            filters.append(AlumnoModel.alumnoNombre == data.get('nombre'))
+            filters.append(AlumnoModel.alumnoNombre.like('%{}%'.format(data.get('nombre'))))
         if data.get('apellido'):
-            filters.append(AlumnoModel.alumnoApellido == data.get('apellido'))
+            filters.append(AlumnoModel.alumnoApellido.like('%{}%'.format(data.get('apellido'))))
         if data.get('pais'):
-            filters.append(AlumnoModel.alumnoPais == data.get('pais'))
+            filters.append(AlumnoModel.alumnoPais.like('%{}%'.format(data.get('pais'))))
 
         resultado = base_de_datos.session.query(AlumnoModel).filter(*filters).all()
 

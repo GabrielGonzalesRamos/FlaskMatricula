@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask
 from os import environ
 from dotenv import load_dotenv
 from config.conexion_bd import base_de_datos
