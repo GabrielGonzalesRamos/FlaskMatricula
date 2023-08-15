@@ -3,7 +3,6 @@ from models.alumno import AlumnoModel
 from uuid import uuid4
 from serializers.serializerAlumnos import serializerAlumnos, serializerBusqueda
 from config.conexion_bd import base_de_datos
-from sqlalchemy import and_
 import copy
 
 class AlumnosController(Resource):

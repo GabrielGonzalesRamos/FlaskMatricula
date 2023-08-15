@@ -8,6 +8,7 @@ from models.alumno_curso import AlumnoCursoModel
 from flask_restful import Api
 from controllers.alumnos import AlumnosController, AlumnoController, BusquedaAlumnos
 
+
 load_dotenv()
 
 app = Flask(__name__)
