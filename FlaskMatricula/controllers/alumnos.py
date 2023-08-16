@@ -63,7 +63,6 @@ class AlumnoController(Resource):
                 }, 404
 
     def put(self, id):
-
         alumno = base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=id).first()
         if alumno:
             data = serializerAlumnos.parse_args()
@@ -87,7 +86,6 @@ class AlumnoController(Resource):
             }, 404
 
     def delete(self, id):
-
         alumno = base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=id)
         if alumno.first():
             alumno_viejo = copy.deepcopy(alumno.first())
@@ -107,18 +105,15 @@ class AlumnoController(Resource):
 class BusquedaAlumnos(Resource):
 
     def get(self):
-
         data = serializerBusqueda.parse_args()
-
         filters = []
-        
         if data.get('nombre'):
             filters.append(AlumnoModel.alumnoNombre.like('%{}%'.format(data.get('nombre'))))
         if data.get('apellido'):
             filters.append(AlumnoModel.alumnoApellido.like('%{}%'.format(data.get('apellido'))))
         if data.get('pais'):
             filters.append(AlumnoModel.alumnoPais.like('%{}%'.format(data.get('pais'))))
-
+            
         resultado = base_de_datos.session.query(AlumnoModel).filter(*filters).all()
 
         if bool(filters):

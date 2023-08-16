@@ -14,4 +14,20 @@ class CursoModel(base_de_datos.Model):
         self.cursoNombre = nombre
         self.cursoFechaInicio = fecha_inicio
         self.cursoFechaFin = fecha_fin
+
+    def save(self):
+        base_de_datos.session.add(self)
+        base_de_datos.session.commit()
+    
+    def delete(self):
+        base_de_datos.session.delete(self)
+        base_de_datos.session.commit()
+    
+    def json(self):
+        return {
+            'id': self.cursoId,
+            'nombre': self.cursoNombre,
+            'fecha_inicio': self.cursoFechaInicio.strftime('%Y-%m-%d'),
+            'fecha_fin': self.cursoFechaFin.strftime('%Y-%m-%d')
+        }
         
