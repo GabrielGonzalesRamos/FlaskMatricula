@@ -1,7 +1,8 @@
+from sqlalchemy import extract
 from flask_restful import Resource
 from config.conexion_bd import base_de_datos
 from models.curso import CursoModel
-from serializers.serializerCursos import serializerCursos
+from serializers.serializerCursos import serializerCursos, serializerBusqueda
 from datetime import datetime
 import copy
 
@@ -99,6 +100,31 @@ class CursoController(Resource):
                 'success': False,
                 'content': None,
                 'message': 'Curso eliminado no existe'
+            }
+
+class BusquedaCursos(Resource):
+
+    def get(self):
+        data = serializerBusqueda.parse_args()
+        filters = []
+        if data.get('nombre'):
+            filters.append(CursoModel.cursoNombre.like('%{}%'.format(data.get('nombre'))))
+        if data.get('mes_inicio'):
+            filters.append(extract('month', CursoModel.cursoFechaInicio) == data.get('mes_inicio'))
+        
+        resultado = base_de_datos.session.query(CursoModel).filter(*filters).all()
+        
+        if bool(resultado):
+            return {
+                'success': True,
+                'content': [i.json() for i in resultado],
+                'message': 'Se encontraron {} coincidencias'.format(base_de_datos.session.query(CursoModel).filter(*filters).count())
+            }
+        else:
+            return {
+                'success': False,
+                'content': None,
+                'message': 'Sin coincidencias'
             }
 
 

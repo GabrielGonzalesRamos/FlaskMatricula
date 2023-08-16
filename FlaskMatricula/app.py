@@ -7,7 +7,7 @@ from models.curso import CursoModel
 from models.alumno_curso import AlumnoCursoModel
 from flask_restful import Api
 from controllers.alumnos import AlumnosController, AlumnoController, BusquedaAlumnos
-from controllers.cursos import CursosController, CursoController
+from controllers.cursos import CursosController, CursoController, BusquedaCursos
 
 
 load_dotenv()
@@ -26,6 +26,7 @@ api.add_resource(AlumnoController, '/alumno/<int:id>')
 api.add_resource(BusquedaAlumnos, '/busqueda_alumnos')
 api.add_resource(CursosController, '/cursos')
 api.add_resource(CursoController, '/curso/<int:id>')
+api.add_resource(BusquedaCursos, '/busqueda_cursos')
 
 if __name__ == '__main__':
     app.run(debug=True)

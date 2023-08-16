@@ -113,7 +113,6 @@ class BusquedaAlumnos(Resource):
             filters.append(AlumnoModel.alumnoApellido.like('%{}%'.format(data.get('apellido'))))
         if data.get('pais'):
             filters.append(AlumnoModel.alumnoPais.like('%{}%'.format(data.get('pais'))))
-            
         resultado = base_de_datos.session.query(AlumnoModel).filter(*filters).all()
 
         if bool(filters):
@@ -126,7 +125,7 @@ class BusquedaAlumnos(Resource):
             return {
                 'success': False,
                 'content': None,
-                'message': 'Filtro vacío'
+                'message': 'Sin coincidencias'
             }
 
 

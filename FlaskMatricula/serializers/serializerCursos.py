@@ -26,3 +26,19 @@ serializerCursos.add_argument(
     help='Fecha fin del curso obligatorio',
     location='json'
 )
+
+serializerBusqueda = reqparse.RequestParser(bundle_errors=True)
+
+serializerBusqueda.add_argument(
+    'nombre',
+    type=str,
+    location='args',
+    required=False
+)
+
+serializerBusqueda.add_argument(
+    'mes_inicio',
+    type=lambda x: int(x),
+    location='args',
+    required=False
+)
