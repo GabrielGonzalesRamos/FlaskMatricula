@@ -94,13 +94,13 @@ class CursoController(Resource):
                 'success': True,
                 'content': [curso_viejo.json()],
                 'message': 'Curso {} eliminado'.format(curso_viejo.cursoNombre)
-            }
+            }, 200
         else: 
             return {
                 'success': False,
                 'content': None,
                 'message': 'Curso eliminado no existe'
-            }
+            }, 404
 
 class BusquedaCursos(Resource):
 
@@ -119,12 +119,12 @@ class BusquedaCursos(Resource):
                 'success': True,
                 'content': [i.json() for i in resultado],
                 'message': 'Se encontraron {} coincidencias'.format(base_de_datos.session.query(CursoModel).filter(*filters).count())
-            }
+            }, 200
         else:
             return {
                 'success': False,
                 'content': None,
                 'message': 'Sin coincidencias'
-            }
+            }, 404
 
 

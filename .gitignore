@@ -1,6 +1,5 @@
 ProyectoMatricula/
 __pycache__/
-fakedata/__pycache__/
 models/__pycache__/
 config/__pycache__/
 controllers/__pycache__/

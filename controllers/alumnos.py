@@ -20,7 +20,7 @@ class AlumnosController(Resource):
                 'success': False,
                 'message': 'No se encontraron alumnos',
                 'content': None
-            }
+            }, 404
         
     def post(self):
         data = serializerAlumnos.parse_args()
@@ -120,13 +120,13 @@ class BusquedaAlumnos(Resource):
                 'success': True,
                 'content': [i.json() for i in resultado],
                 'message': 'Se encontraron {} coincidencias'.format(base_de_datos.session.query(AlumnoModel).filter(*filters).count())
-            }
+            }, 200
         else: 
             return {
                 'success': False,
                 'content': None,
                 'message': 'Sin coincidencias'
-            }
+            }, 404
 
 
 

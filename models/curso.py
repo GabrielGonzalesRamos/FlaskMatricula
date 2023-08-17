@@ -30,4 +30,8 @@ class CursoModel(base_de_datos.Model):
             'fecha_inicio': self.cursoFechaInicio.strftime('%Y-%m-%d'),
             'fecha_fin': self.cursoFechaFin.strftime('%Y-%m-%d')
         }
-        
+    
+    def x(self):
+        return {
+            'alumno': self.cursoRegistrados
+        }
