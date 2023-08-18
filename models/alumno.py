@@ -11,7 +11,7 @@ class AlumnoModel(base_de_datos.Model):
     alumnoDireccion = Column(name='DIRECCION', type_=types.String(length=200))
     alumnoPais = Column(name='PAIS', type_=types.String(length=200))
     alumnoFechaNacimiento = Column(name='FECHA_NACIMIENTO', type_=types.Date)
-
+    
     alumnoRegistrados = orm.relationship('AlumnoCursoModel', backref='registroAlumno', lazy=True, cascade='all, delete-orphan')
 
     def __init__(self, nombre, apellido, direccion, pais, fecha_nacimiento, matricula):
@@ -32,7 +32,6 @@ class AlumnoModel(base_de_datos.Model):
     
     def json(self):
         return {
-            'id': self.alumnoId,
             'matricula': self.alumnoMatricula,
             'nombre': self.alumnoNombre,
             'apellido': self.alumnoApellido,

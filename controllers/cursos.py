@@ -3,7 +3,6 @@ from flask_restful import Resource
 from config.conexion_bd import base_de_datos
 from models.curso import CursoModel
 from serializers.serializerCursos import serializerCursos, serializerBusqueda
-from datetime import datetime
 import copy
 
 

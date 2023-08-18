@@ -10,4 +10,9 @@ class AlumnoCursoModel(base_de_datos.Model):
     def __init__(self, alumno, curso):
         self.acIdAlumno = alumno
         self.acIdCurso = curso
-        
+    
+    def json(self):
+        return {
+            'id_alumno': self.acIdAlumno,
+            'id_curos': self.acIdCurso
+        }

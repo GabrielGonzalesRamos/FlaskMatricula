@@ -52,7 +52,10 @@ class AlumnoController(Resource):
         if alumno:
             return {
                 'success': True,
-                'content': alumno.json(),
+                'content': {
+                    'alumno': alumno.json(),
+                    'cursos': [i.registroCurso.cursoNombre for i in alumno.alumnoRegistrados]
+                },
                 'message': 'Alumno {} {} matriculado'.format(alumno.alumnoNombre, alumno.alumnoApellido)
                 }, 200
         else:
