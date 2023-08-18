@@ -44,11 +44,15 @@ class CursoController(Resource):
 
     def get(self, id):
         curso = base_de_datos.session.query(CursoModel).filter_by(cursoId=id).first()
+        print()
         if curso:
             return {
                 'success': True,
-                'content': curso.json(),
-                'message': 'Curso {} registrado'.format(curso.cursoNombre)
+                'content': {
+                    'curso': curso.json(),
+                    'alumnos_matriculados': [{'id': i.registroAlumno.alumnoId, 'nombre': i.registroAlumno.alumnoNombre, 'apellido': i.registroAlumno.alumnoApellido} for i in curso.cursoRegistrados]
+                },
+                'message': '{} alumnos matriculados en el curso de {}'.format(len(curso.cursoRegistrados), curso.cursoNombre)
             }, 200
         else:
             return {
