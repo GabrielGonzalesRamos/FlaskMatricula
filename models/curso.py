@@ -30,3 +30,12 @@ class CursoModel(base_de_datos.Model):
             'fecha_inicio': self.cursoFechaInicio.strftime('%Y-%m-%d'),
             'fecha_fin': self.cursoFechaFin.strftime('%Y-%m-%d')
         }
+    
+    def join_json(self):
+        return {
+            'id': self.cursoId,
+            'nombre': self.cursoNombre,
+            'fecha_inicio': self.cursoFechaInicio.strftime('%Y-%m-%d'),
+            'fecha_fin': self.cursoFechaFin.strftime('%Y-%m-%d'),
+            'alumnos_inscritos': [{'id': i.alumnoId, 'matricula': i.alumnoMatricula,'nombre': i.alumnoNombre, 'apellido': i.alumnoApellido, 'pais': i.alumnoPais} for i in [i.registroAlumno for i in self.cursoRegistrados]]
+        }

@@ -52,10 +52,7 @@ class AlumnoController(Resource):
         if alumno:
             return {
                 'success': True,
-                'content': {
-                    'alumno': alumno.json(),
-                    'cursos': [i.registroCurso.cursoNombre for i in alumno.alumnoRegistrados]
-                },
+                'content': alumno.join_json(),
                 'message': 'Alumno {} {} matriculado'.format(alumno.alumnoNombre, alumno.alumnoApellido)
                 }, 200
         else:
@@ -118,11 +115,11 @@ class BusquedaAlumnos(Resource):
             filters.append(AlumnoModel.alumnoPais.like('%{}%'.format(data.get('pais'))))
         resultado = base_de_datos.session.query(AlumnoModel).filter(*filters).all()
 
-        if bool(filters):
+        if bool(filters):      
             return {
                 'success': True,
-                'content': [i.json() for i in resultado],
-                'message': 'Se encontraron {} coincidencias'.format(base_de_datos.session.query(AlumnoModel).filter(*filters).count())
+                'content': [i.join_json() for i in resultado],
+                'message': 'Se encontró 1 coincidencia' if base_de_datos.session.query(AlumnoModel).filter(*filters).count() == 1 else 'Se encontraron {} coincidencias'.format(base_de_datos.session.query(AlumnoModel).filter(*filters).count())
             }, 200
         else: 
             return {

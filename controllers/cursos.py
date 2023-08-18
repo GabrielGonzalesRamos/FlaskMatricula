@@ -44,14 +44,10 @@ class CursoController(Resource):
 
     def get(self, id):
         curso = base_de_datos.session.query(CursoModel).filter_by(cursoId=id).first()
-        print()
         if curso:
             return {
                 'success': True,
-                'content': {
-                    'curso': curso.json(),
-                    'alumnos_matriculados': [{'id': i.registroAlumno.alumnoId, 'nombre': i.registroAlumno.alumnoNombre, 'apellido': i.registroAlumno.alumnoApellido} for i in curso.cursoRegistrados]
-                },
+                'content': curso.join_json(),
                 'message': '{} alumnos matriculados en el curso de {}'.format(len(curso.cursoRegistrados), curso.cursoNombre)
             }, 200
         else:
@@ -117,11 +113,12 @@ class BusquedaCursos(Resource):
         
         resultado = base_de_datos.session.query(CursoModel).filter(*filters).all()
         
+        
         if bool(resultado):
             return {
                 'success': True,
-                'content': [i.json() for i in resultado],
-                'message': 'Se encontraron {} coincidencias'.format(base_de_datos.session.query(CursoModel).filter(*filters).count())
+                'content': [i.join_json() for i in resultado],
+                'message': 'Se encontró 1 coincidencia' if base_de_datos.session.query(CursoModel).filter(*filters).count() == 1 else 'Se encontraron {} coincidencias'.format(base_de_datos.session.query(CursoModel).filter(*filters).count())
             }, 200
         else:
             return {
