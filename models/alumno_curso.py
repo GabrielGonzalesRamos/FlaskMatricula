@@ -11,6 +11,10 @@ class AlumnoCursoModel(base_de_datos.Model):
         self.acIdAlumno = alumno
         self.acIdCurso = curso
     
+    def save(self):
+        base_de_datos.session.add(self)
+        base_de_datos.session.commit()
+
     def json(self):
         return {
             'id_alumno': self.acIdAlumno,
