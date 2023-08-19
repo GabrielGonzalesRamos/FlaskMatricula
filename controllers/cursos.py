@@ -11,12 +11,14 @@ class CursosController(Resource):
     def get(self):
         cursos = base_de_datos.session.query(CursoModel).all()
         if cursos:
+            print(cursos)
+            cursos_json = [i.json() for i in cursos]
+            cantidad_alumnos = [len(i.cursoRegistrados) for i in cursos]
             return {
                 'success': True,
                 'message': 'Cantidad total de cursos {}'.format(base_de_datos.session.query(CursoModel).count()),
-                'content': [i.json() for i in cursos]
+                'content': sorted([{**i, 'alumnos_matriculados': j} for i, j in zip(cursos_json, cantidad_alumnos)], key=lambda x: x['alumnos_matriculados'], reverse=True)
             }, 201
-    
     def post(self):
         data = serializerCursos.parse_args()
         if data.get('fecha_fin') < data.get('fecha_inicio'):

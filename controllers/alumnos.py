@@ -49,6 +49,8 @@ class AlumnoController(Resource):
 
     def get(self, id):
         alumno = base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=id).first()
+        x = base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=id).first()
+        print(x)        
         if alumno:
             return {
                 'success': True,
@@ -75,7 +77,7 @@ class AlumnoController(Resource):
             alumno.save()
             return {
                 'success': True,
-                'content': [alumno_viejo.json(), alumno.json()],
+                'content': [alumno_viejo.join_json(), alumno.join_json()],
                 'message': 'Alumno actualizado correctamente'
                 }, 201
         else:
