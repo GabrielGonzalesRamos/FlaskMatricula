@@ -49,8 +49,6 @@ class AlumnoController(Resource):
 
     def get(self, id):
         alumno = base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=id).first()
-        x = base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=id).first()
-        print(x)        
         if alumno:
             return {
                 'success': True,
