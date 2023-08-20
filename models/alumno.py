@@ -40,6 +40,19 @@ class AlumnoModel(base_de_datos.Model):
             'pais': self.alumnoPais,
             'fecha_nacimiento': self.alumnoFechaNacimiento.strftime('%Y-%m-%d')
         }
+
+    def join_json_id(self, id):
+        return {
+            'id': self.alumnoId,
+            'matricula': self.alumnoMatricula,
+            'nombre': self.alumnoNombre,
+            'apellido': self.alumnoApellido,
+            'direccion': self.alumnoDireccion,
+            'pais': self.alumnoPais,
+            'fecha_nacimiento': self.alumnoFechaNacimiento.strftime('%Y-%m-%d'),
+            'cursos': [i.cursoNombre for i in [i.registroCurso for i in base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=id).first().alumnoRegistrados]]
+        }
+        
     def join_json(self):
         return {
             'id': self.alumnoId,
@@ -49,6 +62,5 @@ class AlumnoModel(base_de_datos.Model):
             'direccion': self.alumnoDireccion,
             'pais': self.alumnoPais,
             'fecha_nacimiento': self.alumnoFechaNacimiento.strftime('%Y-%m-%d'),
-            'cursos': [i.cursoNombre for i in [i.registroCurso for i in self.alumnoRegistrados]]
-
+            'cursos': [i.cursoNombre for i in [i.registroCurso for i in self.alumnoRegistrados]]            
         }

@@ -52,7 +52,7 @@ class AlumnoController(Resource):
         if alumno:
             return {
                 'success': True,
-                'content': alumno.join_json(),
+                'content': alumno.join_json_id(id),
                 'message': 'Alumno {} {} matriculado'.format(alumno.alumnoNombre, alumno.alumnoApellido)
                 }, 200
         else:
@@ -75,7 +75,7 @@ class AlumnoController(Resource):
             alumno.save()
             return {
                 'success': True,
-                'content': [alumno_viejo.join_json(), alumno.join_json()],
+                'content': [alumno_viejo.join_json_id(id), alumno.join_json_id(id)],
                 'message': 'Alumno actualizado correctamente'
                 }, 201
         else:
