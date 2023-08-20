@@ -14,6 +14,10 @@ class AlumnoCursoModel(base_de_datos.Model):
     def save(self):
         base_de_datos.session.add(self)
         base_de_datos.session.commit()
+    
+    def delete(self):
+        base_de_datos.session.delete(self)
+        base_de_datos.session.commit()
 
     def json(self):
         return {

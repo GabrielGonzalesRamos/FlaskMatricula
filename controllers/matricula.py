@@ -36,4 +36,22 @@ class MatriculaController(Resource):
                 }, 203
     
     def delete(self):
-        pass
+        data = serializerMatricula.parse_args()
+        alumnoMatricula = base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=data.get('id_alumno')).first()
+        cursoMatricula = base_de_datos.session.query(CursoModel).filter_by(cursoId=data.get('id_curso')).first()
+        alumnoCursoMatricula = base_de_datos.session.query(AlumnoCursoModel).filter_by(acIdAlumno=data.get('id_alumno'), acIdCurso=data.get('id_curso')).first()
+        if alumnoMatricula and cursoMatricula and alumnoCursoMatricula:
+            copy_alumnoMatricula = copy.deepcopy(alumnoMatricula.join_json())
+            alumnoCursoMatricula.delete()
+            return {
+                'success': True,
+                'content': [
+                    copy_alumnoMatricula,
+                    alumnoMatricula.join_json()
+                ],
+                'message': 'Se ha retirado al alumno {} del curso {}'.format(alumnoMatricula.alumnoApellido, cursoMatricula.cursoNombre)
+            }
+            
+
+
+        
