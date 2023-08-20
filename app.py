@@ -9,12 +9,24 @@ from flask_restful import Api
 from controllers.alumnos import AlumnosController, AlumnoController, BusquedaAlumnos
 from controllers.cursos import CursosController, CursoController, BusquedaCursos
 from controllers.matricula import MatriculaController
+from flask_swagger_ui import get_swaggerui_blueprint
 
 
 load_dotenv()
 
+
+swagger_blueprint=get_swaggerui_blueprint(
+    "",
+    "/static/swagger.json",
+    config={
+        'app_name': "SISTEMA DE MATRICULAS - SWAGGER DOCUMENTATION"
+    }
+    
+)
+
 app = Flask(__name__)
 api = Api(app)
+app.register_blueprint(swagger_blueprint)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

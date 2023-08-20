@@ -138,7 +138,7 @@
       },
       "delete": {
         "description": "Este endpoint te permite borrar de manera definitiva todos los datos asociados a un alumno específico identificado por su **ID**.\n\nParámetros de la solicitud:\n\n- `id` : identificador único del alumno a eliminar",
-        "summary": "/alumno/<id>1",
+        "summary": "/alumno/<id>",
         "tags": [
           "ALUMNOS"
         ],
@@ -180,21 +180,21 @@
           {
             "name": "nombre",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string",
             "description": ""
           },
           {
             "name": "apellido",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string",
             "description": ""
           },
           {
             "name": "pais",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "array",
             "description": "",
             "items": {
@@ -374,14 +374,14 @@
           {
             "name": "nombre",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string",
             "description": ""
           },
           {
             "name": "mes_inicio",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "integer",
             "format": "int32",
             "description": ""

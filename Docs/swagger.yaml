@@ -148,7 +148,7 @@ paths:
 
 
         - `id` : identificador único del alumno a eliminar
-      summary: /alumno/<id>1
+      summary: /alumno/<id>
       tags:
         - ALUMNOS
       operationId: /alumno/<id>1
@@ -187,17 +187,17 @@ paths:
       parameters:
         - name: nombre
           in: query
-          required: true
+          required: false
           type: string
           description: ''
         - name: apellido
           in: query
-          required: true
+          required: false
           type: string
           description: ''
         - name: pais
           in: query
-          required: true
+          required: false
           type: "array"
           description: ''
           items:
@@ -354,7 +354,7 @@ paths:
           description: ''
           headers: {}
   /busqueda_cursos:
-    get:
+    get: 
       description: >-
         Este endpoint te permite obtener un resultado específico al filtrar la
         lista total de curso en función de los siguientes criterios:
@@ -373,12 +373,12 @@ paths:
       parameters:
         - name: nombre
           in: query
-          required: true
+          required: false
           type: string
           description: ''
         - name: mes_inicio
           in: query
-          required: true
+          required: false
           type: integer
           format: int32
           description: ''
