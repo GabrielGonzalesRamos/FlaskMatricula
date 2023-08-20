@@ -43,7 +43,7 @@ class AlumnosController(Resource):
                 'success': False,
                 'content': None,
                 'message': f'{E}'
-                }, 203
+                }, 404
 
 class AlumnoController(Resource):
 

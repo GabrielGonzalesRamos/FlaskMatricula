@@ -15,7 +15,7 @@ class MatriculaController(Resource):
                 'success': False,
                 'content': None,
                 'message': f"El alumno {base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=data.get('id_alumno')).first().alumnoNombre} {base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=data.get('id_alumno')).first().alumnoApellido} ha superado el límite máximo de 5 cursos permitidos"
-            }, 203
+            }, 404
         if base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=data.get('id_alumno')).first() and base_de_datos.session.query(CursoModel).filter_by(cursoId=data.get('id_curso')).first():
             try:
                 nuevaMatricula = AlumnoCursoModel(alumno=data.get('id_alumno'), curso=data.get('id_curso'))
@@ -33,7 +33,7 @@ class MatriculaController(Resource):
                     'success': False,
                     'content': [i.registroCurso.cursoNombre for i in cursoMatricula.all()],
                     'message': f'El alumno {alumnoMatricula.alumnoNombre} {alumnoMatricula.alumnoApellido} ya se encuentra matriculado en el curso'
-                }, 203
+                }, 404
     
     def delete(self):
         data = serializerMatricula.parse_args()
@@ -50,7 +50,21 @@ class MatriculaController(Resource):
                     alumnoMatricula.join_json()
                 ],
                 'message': 'Se ha retirado al alumno {} del curso {}'.format(alumnoMatricula.alumnoApellido, cursoMatricula.cursoNombre)
-            }
+            }, 200
+        if alumnoMatricula is None or cursoMatricula is None:
+            return {
+                'success': False,
+                'content': None,
+                'message': 'Revisar si el id_alumno o id_curso es váido'
+            }, 404
+        if alumnoCursoMatricula is None:
+            return {
+                'success': False,
+                'content': None,
+                'message': 'El alumno {} no está matriculado en el curso {}'.format(alumnoMatricula.alumnoApellido, cursoMatricula.cursoNombre)
+
+            }, 404
+
             
 
 

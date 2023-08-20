@@ -19,6 +19,7 @@ class CursosController(Resource):
                 'message': 'Cantidad total de cursos {}'.format(base_de_datos.session.query(CursoModel).count()),
                 'content': sorted([{**i, 'alumnos_matriculados': j} for i, j in zip(cursos_json, cantidad_alumnos)], key=lambda x: x['alumnos_matriculados'], reverse=True)
             }, 201
+            
     def post(self):
         data = serializerCursos.parse_args()
         if data.get('fecha_fin') < data.get('fecha_inicio'):
@@ -26,7 +27,7 @@ class CursosController(Resource):
                 'success': False,
                 'content': 'None',
                 'message': 'La fecha final del curso debe de ser mayor que la fecha de inicio'
-            }, 203
+            }, 404
         nuevoCurso = CursoModel(nombre=data.get('nombre'), fecha_inicio=data.get('fecha_inicio'), fecha_fin=data.get('fecha_fin'))
         try:
             nuevoCurso.save()
@@ -40,7 +41,7 @@ class CursosController(Resource):
                 'success': False,
                 'content': None,
                 'message': f'{E}'
-            }, 203
+            }, 404
 
 class CursoController(Resource):
 
@@ -57,7 +58,7 @@ class CursoController(Resource):
                 'success': False,
                 'content': None,
                 'message': 'Curso no registrado'
-            }, 203
+            }, 404
 
     def put(self, id):
         curso = base_de_datos.session.query(CursoModel).filter_by(cursoId=id).first()
@@ -67,7 +68,7 @@ class CursoController(Resource):
                 'success': False,
                 'content': None,
                 'message': 'La fecha final del curso debe de ser mayor que la fecha de inicio'
-            }, 203
+            }, 404
         if curso:
             curso_viejo = copy.deepcopy(curso)
             curso.cursoNombre = data.get('nombre')
