@@ -1,0 +1,552 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: SISTEMA MATRICULA
+  contact: 
+    email: "jose.gabriel.gonzales.ramos@gmail.com"
+    name: "JOSÉ GABRIEL GONZALES RAMOS"
+host: localhost:5000
+basePath: /
+securityDefinitions: {}
+schemes:
+  - https
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /alumnos:
+    get:
+      description: >-
+        Este endpoint proporciona una lista completa de todos los alumnos que
+        están matriculados en el sistema.
+      summary: /alumnos
+      tags:
+        - ALUMNOS
+      operationId: /alumnos
+      deprecated: false
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    post:
+      description: >-
+        Este endpoint permite registrar un nuevo alumno proporcionando la
+        siguiente información en formato **JSON**:  
+
+
+        - `nombre` : El nombre del alumno
+            
+        - `apellido` : El apellido del alumno
+            
+        - `direccion`: La dirección del alumno
+            
+        - `pais`: El país de residencia del alumno
+            
+        - `fecha_nacimiento`: La fecha de nacimiento del alumno en formato
+        **YYYY-MM-DD**
+      summary: /alumnos
+      tags:
+        - ALUMNOS
+      operationId: Post/alumnos
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1alumnosrequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /alumno/{id}:
+    get:
+      description: >-
+        Este endpoint permite obtener la información detallada de un único
+        alumno utilizando su identificador único.
+
+
+        Parámetros de la solicitud:
+
+
+        - `id`: identificador único del alumno a consultar
+      summary: /alumno/<id>
+      tags:
+        - ALUMNOS
+      operationId: /alumno/<id>
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "identificador único del alumno a consultar"
+          required: True
+          type: "integer"
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    put:
+      description: >-
+        Este endpoint actualiza los datos de un alumno específico identificado
+        por su **ID** previamente registrado utilizando la información en
+        formato **JSON**.  
+
+        Los siguientes campos son obligatorios en el cuerpo de la solicitud
+        **JSON** para actualizar los datos:
+
+
+        - `nombre` : El nombre del alumno
+            
+        - `apellido` : El apellido del alumno
+            
+        - **`direccion`** **:** La dirección del alumno
+            
+        - **`pais`**: El país de residencia del alumno
+            
+        - **`fecha_nacimiento`**: La fecha de nacimiento del alumno en formato
+        **YYYY-MM-DD**
+      summary: /alumno/<id>
+      tags:
+        - ALUMNOS
+      operationId: Put/alumno/<id>
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "identificador único del alumno a modificar"
+          required: True
+          type: "integer"
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1alumno~1%3Cid%3Erequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    delete:
+      description: >-
+        Este endpoint te permite borrar de manera definitiva todos los datos
+        asociados a un alumno específico identificado por su **ID**.
+
+
+        Parámetros de la solicitud:
+
+
+        - `id` : identificador único del alumno a eliminar
+      summary: /alumno/<id>1
+      tags:
+        - ALUMNOS
+      operationId: /alumno/<id>1
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "identificador único del alumno a eliminar"
+          required: True
+          type: "integer"
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /busqueda_alumnos:
+    get:
+      description: >-
+        Este endpoint te permite obtener un resultado específico al filtrar la
+        lista total de alumnos en función de los siguientes criterios:
+
+
+        - `nombre`: El nombre del alumno
+
+        - `apellido`: El apellido del alumno
+
+        - `pais`: El país de residencia del alumno
+      summary: /busqueda_alumnos
+      tags:
+        - ALUMNOS
+      operationId: /busqueda_alumnos
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: nombre
+          in: query
+          required: true
+          type: string
+          description: ''
+        - name: apellido
+          in: query
+          required: true
+          type: string
+          description: ''
+        - name: pais
+          in: query
+          required: true
+          type: "array"
+          description: ''
+          items:
+            enum:
+            - "Mexico"
+            - "Chile"
+            - "Colombia"
+            - "Argentina"
+            - "Peru"
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /cursos:
+    get:
+      description: >-
+        Este endpoint proporciona una lista detallada de todos los cursos que
+        están disponibles para ser dictados.
+      summary: /cursos
+      tags:
+        - CURSOS
+      operationId: /cursos
+      deprecated: false
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    post:
+      description: >-
+        Este endpoint permite agregar un nuevo curso a la lista de cursos
+        disponibles proporcionando la siguiente información en formato **JSON**:
+
+
+        - `nombre`: El nombre del curso a dictar
+            
+        - `fecha_inicio`: La fecha de inicio del nuevo curso en formato
+        **YYYY-MM-DD**
+            
+        - `fecha_fin`: La fecha de culminación del nuevo curso en formato
+        **YYYY-MM-DD**
+      summary: /cursos
+      tags:
+        - CURSOS
+      operationId: Post/cursos
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1cursosrequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /curso/{id}:
+    get:
+      description: >-
+        Este endpoint permite obtener la información detallada de un único curso
+        utilizando su identificador único.
+
+
+        Parámetros de la solicitud:
+
+
+        - `id`: identificador único del curso a consultar
+      summary: /curso/<id>
+      tags:
+        - CURSOS
+      operationId: /curso/<id>
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "identificador único del curso a consultar"
+          required: True
+          type: "integer"
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    put:
+      description: >-
+        Este endpoint actualiza los datos de un curso específico identificado
+        por su **ID** previamente registrado utilizando la información en
+        formato **JSON**.  
+
+        Los siguientes campos son obligatorios en el cuerpo de la solicitud
+        **JSON** para actualizar los datos:
+
+
+        - `nombre` : El nombre del curso a dictar
+            
+        - `fecha_inicio`: La fecha de inicio del curso en formato **YYYY-MM-DD**
+            
+        - `fecha_fin`: La fecha de culminación del curso en formato
+        **YYYY-MM-DD**
+      summary: /curso/<id>
+      tags:
+        - CURSOS
+      operationId: Put/curso/<id>
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "identificador único del curso a consultar"
+          required: True
+          type: "integer"      
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1curso~1%3Cid%3Erequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    delete:
+      description: >-
+        Este endpoint te permite borrar de manera definitiva todos los datos
+        asociados a un curso específico identificado por su **ID**.
+
+
+        Parámetros de la solicitud:
+
+
+        - `id` : identificador único del curso a eliminar
+      summary: /curso/<id>
+      tags:
+        - CURSOS
+      operationId: /curso/<id>1
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "identificador único del curso a eliminar"
+          required: True
+          type: "integer"
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /busqueda_cursos:
+    get:
+      description: >-
+        Este endpoint te permite obtener un resultado específico al filtrar la
+        lista total de curso en función de los siguientes criterios:
+
+
+        - `nombre`: El nombre del alumno a dictar
+            
+        - `mes_inicio`: El mes de inicio del curso en formato númerico
+      summary: /busqueda_cursos
+      tags:
+        - CURSOS
+      operationId: /busqueda_cursos
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: nombre
+          in: query
+          required: true
+          type: string
+          description: ''
+        - name: mes_inicio
+          in: query
+          required: true
+          type: integer
+          format: int32
+          description: ''
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /matricula:
+    post:
+      description: >-
+        Este endpoint te permite inscribir a un alumno en un curso específico
+        proporcionando la siguiente información en el cuerpo de la solicitud
+        **JSON**:
+
+
+        - `id_alumno`: identificador único del alumno
+            
+        - `id_curso`: identificador único del curso
+      summary: /matricula
+      tags:
+        - MATRICULAS
+      operationId: /matricula
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1matricularequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    delete:
+      description: >-
+        Este endpoint te permite retirar a un alumno de un curso específico
+        proporcionando la siguiente información en el cuerpo de la solicitud
+        **JSON**:
+
+
+        - `id_alumno`: identificador único del alumno
+            
+        - `id_curso`: identificador único del curso
+      summary: /matricula
+      tags:
+        - MATRICULAS
+      operationId: /matricula1
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1matricularequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+definitions:
+  /alumnosrequest:
+    title: /alumnosrequest
+    example:
+      nombre: Jose Gabriel
+      apellido: Gonzales Ramos
+      direccion: Freire 2197 Piso 6 Camarones, Región de Arica y Parinacota, 1664830
+      pais: Peru
+      fecha_nacimiento: '1999-02-25'
+    type: object
+    properties:
+      nombre:
+        type: string
+      apellido:
+        type: string
+      direccion:
+        type: string
+      pais:
+        type: string
+      fecha_nacimiento:
+        type: string
+    required:
+      - nombre
+      - apellido
+      - direccion
+      - pais
+      - fecha_nacimiento
+  /alumno/<id>request:
+    title: /alumno/<id>request
+    example:
+      nombre: Camilo
+      apellido: Ruidia Chavez
+      direccion: Jr. Almirante Guisse, 597 Callao Cercado, 07021
+      pais: Peru
+      fecha_nacimiento: '1999-03-25'
+    type: object
+    properties:
+      nombre:
+        type: string
+      apellido:
+        type: string
+      direccion:
+        type: string
+      pais:
+        type: string
+      fecha_nacimiento:
+        type: string
+    required:
+      - nombre
+      - apellido
+      - direccion
+      - pais
+      - fecha_nacimiento
+  /cursosrequest:
+    title: /cursosrequest
+    example:
+      nombre: Curso Oficial de Preparación para la Certificación PMP
+      fecha_inicio: '2023-08-18'
+      fecha_fin: '2023-12-01'
+    type: object
+    properties:
+      nombre:
+        type: string
+      fecha_inicio:
+        type: string
+      fecha_fin:
+        type: string
+    required:
+      - nombre
+      - fecha_inicio
+      - fecha_fin
+  /curso/<id>request:
+    title: /curso/<id>request
+    example:
+      nombre: Curso Oficial de Preparación para la Certificación PMP
+      fecha_inicio: '2023-08-18'
+      fecha_fin: '2023-12-01'
+    type: object
+    properties:
+      nombre:
+        type: string
+      fecha_inicio:
+        type: string
+      fecha_fin:
+        type: string
+    required:
+      - nombre
+      - fecha_inicio
+      - fecha_fin
+  /matricularequest:
+    title: /matricularequest
+    example:
+      id_alumno: '3395'
+      id_curso: '15'
+    type: object
+    properties:
+      id_alumno:
+        type: string
+      id_curso:
+        type: string
+    required:
+      - id_alumno
+      - id_curso
+tags:
+  - name: ALUMNOS
+  - name: CURSOS
+  - name: MATRICULAS

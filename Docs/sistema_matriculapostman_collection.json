@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "d3e44056-a574-4753-9aba-f0acedd07700",
+		"name": "SISTEMA MATRICULA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25190136"
+	},
+	"item": [
+		{
+			"name": "ALUMNOS",
+			"item": [
+				{
+					"name": "/alumnos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/alumnos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alumnos"
+							]
+						},
+						"description": "Este endpoint proporciona una lista completa de todos los alumnos que están matriculados en el sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "/alumno/<id>",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/alumno/100",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alumno",
+								"100"
+							]
+						},
+						"description": "Este endpoint permite obtener la información detallada de un único alumno utilizando su identificador único.\n\nParámetros de la solicitud:\n\n- `id`: identificador único del alumno a consultar"
+					},
+					"response": []
+				},
+				{
+					"name": "/alumnos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Jose Gabriel\",\n    \"apellido\": \"Gonzales Ramos\",\n    \"direccion\": \"Freire 2197 Piso 6 Camarones, Región de Arica y Parinacota, 1664830\",\n    \"pais\": \"Peru\",\n    \"fecha_nacimiento\": \"1999-02-25\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/alumnos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alumnos"
+							]
+						},
+						"description": "Este endpoint permite registrar un nuevo alumno proporcionando la siguiente información en formato **JSON**:  \n\n- `nombre` : El nombre del alumno\n    \n- `apellido` : El apellido del alumno\n    \n- `direccion`: La dirección del alumno\n    \n- `pais`: El país de residencia del alumno\n    \n- `fecha_nacimiento`: La fecha de nacimiento del alumno en formato **YYYY-MM-DD**"
+					},
+					"response": []
+				},
+				{
+					"name": "/alumno/<id>",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Camilo\",\n    \"apellido\": \"Ruidia Chavez\",\n    \"direccion\": \"Jr. Almirante Guisse, 597 Callao Cercado, 07021\",\n    \"pais\": \"Peru\",\n    \"fecha_nacimiento\": \"1999-03-25\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/alumno/5001",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alumno",
+								"5001"
+							]
+						},
+						"description": "Este endpoint actualiza los datos de un alumno específico identificado por su **ID** previamente registrado utilizando la información en formato **JSON**.  \nLos siguientes campos son obligatorios en el cuerpo de la solicitud **JSON** para actualizar los datos:\n\n- `nombre` : El nombre del alumno\n    \n- `apellido` : El apellido del alumno\n    \n- **`direccion`** **:** La dirección del alumno\n    \n- **`pais`**: El país de residencia del alumno\n    \n- **`fecha_nacimiento`**: La fecha de nacimiento del alumno en formato **YYYY-MM-DD**"
+					},
+					"response": []
+				},
+				{
+					"name": "/alumno/<id>",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/alumno/5001",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alumno",
+								"5001"
+							]
+						},
+						"description": "Este endpoint te permite borrar de manera definitiva todos los datos asociados a un alumno específico identificado por su **ID**.\n\nParámetros de la solicitud:\n\n- `id` : identificador único del alumno a eliminar"
+					},
+					"response": []
+				},
+				{
+					"name": "/busqueda_alumnos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/busqueda_alumnos?nombre=Gabriel&apellido=Gon&pais=Chile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"busqueda_alumnos"
+							],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "Gabriel"
+								},
+								{
+									"key": "apellido",
+									"value": "Gon"
+								},
+								{
+									"key": "pais",
+									"value": "Chile"
+								}
+							]
+						},
+						"description": "Este endpoint te permite obtener un resultado específico al filtrar la lista total de alumnos en función de los siguientes criterios:\n\n- `nombre`: El nombre del alumno\n- `apellido`: El apellido del alumno\n- `pais`: El país de residencia del alumno"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CURSOS",
+			"item": [
+				{
+					"name": "/cursos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cursos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cursos"
+							]
+						},
+						"description": "Este endpoint proporciona una lista detallada de todos los cursos que están disponibles para ser dictados."
+					},
+					"response": []
+				},
+				{
+					"name": "/cursos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Curso Oficial de Preparación para la Certificación PMP\",\n    \"fecha_inicio\": \"2023-08-18\", \n    \"fecha_fin\": \"2023-12-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/cursos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cursos"
+							]
+						},
+						"description": "Este endpoint permite agregar un nuevo curso a la lista de cursos disponibles proporcionando la siguiente información en formato **JSON**:\n\n- `nombre`: El nombre del curso a dictar\n    \n- `fecha_inicio`: La fecha de inicio del nuevo curso en formato **YYYY-MM-DD**\n    \n- `fecha_fin`: La fecha de culminación del nuevo curso en formato **YYYY-MM-DD**"
+					},
+					"response": []
+				},
+				{
+					"name": "/curso/<id>",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/curso/15",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"curso",
+								"15"
+							]
+						},
+						"description": "Este endpoint permite obtener la información detallada de un único curso utilizando su identificador único.\n\nParámetros de la solicitud:\n\n- `id`: identificador único del curso a consultar"
+					},
+					"response": []
+				},
+				{
+					"name": "/curso/<id>",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Curso Oficial de Preparación para la Certificación PMP\",\n    \"fecha_inicio\": \"2023-08-18\", \n    \"fecha_fin\": \"2023-12-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/curso/15",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"curso",
+								"15"
+							]
+						},
+						"description": "Este endpoint actualiza los datos de un curso específico identificado por su **ID** previamente registrado utilizando la información en formato **JSON**.  \nLos siguientes campos son obligatorios en el cuerpo de la solicitud **JSON** para actualizar los datos:\n\n- `nombre` : El nombre del curso a dictar\n    \n- `fecha_inicio`: La fecha de inicio del curso en formato **YYYY-MM-DD**\n    \n- `fecha_fin`: La fecha de culminación del curso en formato **YYYY-MM-DD**"
+					},
+					"response": []
+				},
+				{
+					"name": "/curso/<id>",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/curso/25",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"curso",
+								"25"
+							]
+						},
+						"description": "Este endpoint te permite borrar de manera definitiva todos los datos asociados a un curso específico identificado por su **ID**.\n\nParámetros de la solicitud:\n\n- `id` : identificador único del curso a eliminar"
+					},
+					"response": []
+				},
+				{
+					"name": "/busqueda_cursos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/busqueda_cursos?nombre=DJAN&mes_inicio=06",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"busqueda_cursos"
+							],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "DJAN"
+								},
+								{
+									"key": "mes_inicio",
+									"value": "06"
+								}
+							]
+						},
+						"description": "Este endpoint te permite obtener un resultado específico al filtrar la lista total de curso en función de los siguientes criterios:\n\n- `nombre`: El nombre del alumno a dictar\n    \n- `mes_inicio`: El mes de inicio del curso en formato númerico"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MATRICULAS",
+			"item": [
+				{
+					"name": "/matricula",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_alumno\": \"3395\",\n    \"id_curso\": \"15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/matricula",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"matricula"
+							]
+						},
+						"description": "Este endpoint te permite inscribir a un alumno en un curso específico proporcionando la siguiente información en el cuerpo de la solicitud **JSON**:\n\n- `id_alumno`: identificador único del alumno\n    \n- `id_curso`: identificador único del curso"
+					},
+					"response": []
+				},
+				{
+					"name": "/matricula",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_alumno\": \"3547\",\n    \"id_curso\": \"30\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/matricula",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"matricula"
+							]
+						},
+						"description": "Este endpoint te permite retirar a un alumno de un curso específico proporcionando la siguiente información en el cuerpo de la solicitud **JSON**:\n\n- `id_alumno`: identificador único del alumno\n    \n- `id_curso`: identificador único del curso"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:5000",
+			"type": "string"
+		}
+	]
+}
