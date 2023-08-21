@@ -12,8 +12,8 @@ from controllers.matricula import MatriculaController
 from flask_swagger_ui import get_swaggerui_blueprint
 
 
-load_dotenv()
 
+load_dotenv()
 
 swagger_blueprint=get_swaggerui_blueprint(
     "",
@@ -45,3 +45,4 @@ api.add_resource(MatriculaController, '/matricula')
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
