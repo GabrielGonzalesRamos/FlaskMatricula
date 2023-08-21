@@ -12,7 +12,6 @@
   "basePath": "/",
   "securityDefinitions": {},
   "schemes": [
-    "https",
     "http"
   ],
   "consumes": [
