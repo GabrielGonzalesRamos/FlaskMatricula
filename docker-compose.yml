@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.8'
 networks:
   flask-network:
     driver: bridge
@@ -14,7 +14,7 @@ services:
       - MSSQL_SA_PASSWORD=${DATABASE_PASSWORD}
       - MSSQL_PID=Developer
     volumes:
-    - ./data:/var/opt/mssql
+    - ~/Documentos/TECSUP/C1/FGD/S15/mssql/data:/var/opt/mssql
     networks:
       - flask-network
     healthcheck:
@@ -23,7 +23,7 @@ services:
       retries: 3
   flask:
     image: us.icr.io/gg-prod/portal-matricula-backend:GDR-001
-    container_name: sistema-matriculas
+    container_name: flask
     ports:
       - 5000:5000
     environment:
@@ -32,6 +32,14 @@ services:
       - flask-network
     depends_on:
       - mssql
-
-  
-    
+  ngrok:
+    image: ngrok/ngrok:alpine
+    container_name: ngrok
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+      - REGION=us
+    command: 'http flask:5000'
+    networks:
+      - flask-network
+    depends_on:
+      - flask

@@ -15,7 +15,6 @@ RUN apk add --no-cache gpg unixodbc gcc g++ unixodbc-dev && pip3 install --no-ca
     rm -rf /var/cache/apk/* && \
     apk del gcc g++
 
-
 USER deploy
 
 COPY --chown=deploy:deploy . .

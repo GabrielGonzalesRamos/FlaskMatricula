@@ -8,10 +8,11 @@
       "name": "JOSÉ GABRIEL GONZALES RAMOS"
     }
   },
-  "host": "192.168.100.123:5000",
+  "host": "localhost:5000",
   "basePath": "/",
   "securityDefinitions": {},
   "schemes": [
+    "https",
     "http"
   ],
   "consumes": [
