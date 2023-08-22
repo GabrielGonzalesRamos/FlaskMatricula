@@ -1,0 +1,37 @@
+version: '3.3'
+networks:
+  flask-network:
+    driver: bridge
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${DATABASE_PASSWORD}
+      - MSSQL_PID=Developer
+    volumes:
+    - ./data:/var/opt/mssql
+    networks:
+      - flask-network
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "${DATABASE_PASSWORD}", "-d", "${DATABASE_NAME}", "-Q", "SELECT 1"]
+      timeout: 20s
+      retries: 3
+  flask:
+    image: us.icr.io/gg-prod/portal-matricula-backend:GDR-001
+    container_name: sistema-matriculas
+    ports:
+      - 5000:5000
+    environment:
+      - DATABASE_URI=${DATABASE_URI}
+    networks:
+      - flask-network
+    depends_on:
+      - mssql
+
+  
+    
