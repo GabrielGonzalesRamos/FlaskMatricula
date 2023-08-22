@@ -6,7 +6,7 @@ RUN addgroup -S deploy && adduser -S deploy -G deploy
 
 WORKDIR /home/deploy/app
 
-COPY --chown=deploy:deploy requirements.txt /home/deploy/app/
+COPY --chown=deploy:deploy requirements.txt .
 
 RUN apk add --no-cache curl gpg unixodbc unixodbc-dev g++ python3-dev gcc && pip3 install --no-cache-dir -r requirements.txt && \
     curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.10.4.1-1_amd64.apk && \ 
@@ -15,9 +15,8 @@ RUN apk add --no-cache curl gpg unixodbc unixodbc-dev g++ python3-dev gcc && pip
 
 USER deploy
 
-COPY --chown=deploy:deploy . /home/deploy/app/
+COPY --chown=deploy:deploy . .
 
 EXPOSE 5000
 
 ENTRYPOINT ["python3", "app.py"]
-
