@@ -10,6 +10,7 @@ from controllers.alumnos import AlumnosController, AlumnoController, BusquedaAlu
 from controllers.cursos import CursosController, CursoController, BusquedaCursos
 from controllers.matricula import MatriculaController
 from flask_swagger_ui import get_swaggerui_blueprint
+from flask_cors import CORS
 
 
 
@@ -25,6 +26,7 @@ swagger_blueprint=get_swaggerui_blueprint(
 )
 
 app = Flask(__name__)
+CORS(app=app, methods=['GET', 'POST', 'PUT', 'DELETE'], origins=['*'], allow_headers=['Content-Type'])
 api = Api(app)
 app.register_blueprint(swagger_blueprint)
 
