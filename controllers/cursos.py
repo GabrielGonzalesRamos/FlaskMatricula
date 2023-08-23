@@ -40,7 +40,7 @@ class CursosController(Resource):
             return {
                 'success': False,
                 'content': None,
-                'message': f'{E}'
+                'message': 'Curso registrado previamente'
             }, 404
 
 class CursoController(Resource):

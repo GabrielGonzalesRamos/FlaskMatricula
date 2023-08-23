@@ -42,7 +42,7 @@ class AlumnosController(Resource):
             return {
                 'success': False,
                 'content': None,
-                'message': f'{E}'
+                'message': 'Alumno registrado previamente'
                 }, 404
 
 class AlumnoController(Resource):
