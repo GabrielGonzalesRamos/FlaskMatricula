@@ -26,7 +26,7 @@ swagger_blueprint=get_swaggerui_blueprint(
 app = Flask(__name__)
 
 app.register_blueprint(swagger_blueprint)
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI_PROD')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 base_de_datos.init_app(app)
@@ -44,5 +44,5 @@ api.add_resource(MatriculaController, '/matricula')
 CORS(app=app, methods=['GET', 'POST', 'PUT', 'DELETE'], origins=['*'], allow_headers=['Content-Type'])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0' ,debug=True)
     

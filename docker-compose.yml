@@ -22,7 +22,7 @@ services:
       timeout: 20s
       retries: 3
   flask:
-    image: us.icr.io/gg-prod/portal-matricula-backend:GDR-001
+    image: docker.io/gabrielgonzales/gg-dev:GDR-001
     container_name: flask
     ports:
       - 5000:5000

@@ -1,0 +1,7 @@
+Docs/
+ProyectoMatricula/
+__pycache__/
+models/__pycache__/
+config/__pycache__/
+controllers/__pycache__/
+test/
