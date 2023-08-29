@@ -5,7 +5,7 @@ from datetime import datetime
 
 class AlumnoTest(BaseTest):
     def test_alumnoModel(self):
-        with self.app_context():
+        with self.app_context:
             alumno = AlumnoModel(
                 matricula = uuid4(),
                 nombre = 'Jose Gabriel',

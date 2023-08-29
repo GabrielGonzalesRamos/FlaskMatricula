@@ -4,7 +4,7 @@ from datetime import datetime
 
 class CursoTest(BaseTest):
     def test_cursoModel(self):
-        with self.app_context():
+        with self.app_context:
             curso = CursoModel(
                 nombre = 'CURSO DE PRUEBA',
                 fecha_inicio = datetime.strptime('2023-01-01',"%Y-%m-%d"),
@@ -15,5 +15,3 @@ class CursoTest(BaseTest):
             self.assertIsNotNone(CursoModel.query.filter_by(cursoNombre='CURSO DE PRUEBA').first())
             curso.delete()
             self.assertIsNone(CursoModel.query.filter_by(cursoNombre='CURSO DE PRUEBA').first())
-
-        
