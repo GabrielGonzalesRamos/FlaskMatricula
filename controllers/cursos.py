@@ -36,7 +36,6 @@ class CursosController(Resource):
                 'message': 'Curso registrado'
             }, 201
         except Exception as E:
-            print(E)
             return {
                 'success': False,
                 'content': None,
