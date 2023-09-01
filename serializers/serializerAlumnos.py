@@ -1,13 +1,19 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, abort
 from datetime import datetime
 
 serializerAlumnos = reqparse.RequestParser(bundle_errors=True)
-
 serializerAlumnos.add_argument(
     'nombre',
     type=str,
     required=True,
     help='Nombre del alumno obligatorio',
+    location='json'
+)
+serializerAlumnos.add_argument(
+    'dni',
+    type=str,
+    required=True,
+    help='DNI del alumno obligatorio',
     location='json'
 )
 serializerAlumnos.add_argument(
@@ -61,4 +67,10 @@ serializerBusqueda.add_argument(
     required=False,
     choices=('Mexico', 'Chile', 'Colombia', 'Argentina', 'Peru'),
     help='Pais invalido'
+)
+serializerBusqueda.add_argument(
+    'dni',
+    type=str,
+    location='args',
+    required=False
 )

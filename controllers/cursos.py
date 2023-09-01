@@ -11,7 +11,6 @@ class CursosController(Resource):
     def get(self):
         cursos = base_de_datos.session.query(CursoModel).all()
         if cursos:
-            print(cursos)
             cursos_json = [i.json() for i in cursos]
             cantidad_alumnos = [len(i.cursoRegistrados) for i in cursos]
             return {
@@ -37,6 +36,7 @@ class CursosController(Resource):
                 'message': 'Curso registrado'
             }, 201
         except Exception as E:
+            print(E)
             return {
                 'success': False,
                 'content': None,

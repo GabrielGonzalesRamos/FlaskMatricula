@@ -1,6 +1,5 @@
 from flask_restful import Resource
 from models.alumno import AlumnoModel
-from uuid import uuid4
 from serializers.serializerAlumnos import serializerAlumnos, serializerBusqueda
 from config.conexion_bd import base_de_datos
 import copy
@@ -25,12 +24,19 @@ class AlumnosController(Resource):
     def post(self):
         data = serializerAlumnos.parse_args()
         nuevoAlumno = AlumnoModel(\
+            dni=data.get('dni'), \
             nombre=data.get('nombre'), \
             apellido=data.get('apellido'), \
             direccion=data.get('direccion'), \
             pais=data.get('pais'), \
             fecha_nacimiento=data.get('fecha_nacimiento'), \
-            matricula=uuid4())
+            )
+        if not data.get('dni').isdigit() or len(data.get('dni')) != 8:
+            return {
+                'success': False,
+                'content': None,
+                'message': 'DNI debe de ser una cadena númerica de 8 dígitos'
+            }
         try:
             nuevoAlumno.save()
             return {
@@ -39,7 +45,6 @@ class AlumnosController(Resource):
                 'message': 'Alumno registrado',
                 }, 201
         except Exception as E:
-            print(E)
             return {
                 'success': False,
                 'content': None,
@@ -68,11 +73,18 @@ class AlumnoController(Resource):
         if alumno:
             data = serializerAlumnos.parse_args()
             alumno_viejo = copy.deepcopy(alumno)
+            alumno.alumnoDNI = data.get('dni')
             alumno.alumnoNombre = data.get('nombre')
             alumno.alumnoApellido = data.get('apellido')
             alumno.alumnoDireccion = data.get('direccion')
             alumno.alumnoPais = data.get('pais')
             alumno.alumnoFechaNacimiento = data.get('fecha_nacimiento')
+            if not data.get('dni').isdigit() or len(data.get('dni')) != 8:
+                return {
+                    'success': False,
+                    'content': None,
+                    'message': 'DNI debe de ser una cadena númerica de 8 dígitos'
+                }
             alumno.save()
             return {
                 'success': True,
@@ -114,6 +126,8 @@ class BusquedaAlumnos(Resource):
             filters.append(AlumnoModel.alumnoApellido.like('%{}%'.format(data.get('apellido'))))
         if data.get('pais'):
             filters.append(AlumnoModel.alumnoPais.like('%{}%'.format(data.get('pais'))))
+        if data.get('dni'):
+            filters.append(AlumnoModel.alumnoDNI.like('%{}%'.format(data.get('dni'))))
         resultado = base_de_datos.session.query(AlumnoModel).filter(*filters).all()
 
         if bool(filters):      
