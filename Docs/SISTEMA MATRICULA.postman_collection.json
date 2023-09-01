@@ -33,13 +33,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/alumno/100",
+							"raw": "{{url}}/alumno/123",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"alumno",
-								"100"
+								"123"
 							]
 						},
 						"description": "Este endpoint permite obtener la información detallada de un único alumno utilizando su identificador único.\n\nParámetros de la solicitud:\n\n- `id`: identificador único del alumno a consultar"
@@ -53,7 +53,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nombre\": \"Jose Gabriel\",\n    \"apellido\": \"Gonzales Ramos\",\n    \"direccion\": \"Freire 2197 Piso 6 Camarones, Región de Arica y Parinacota, 1664830\",\n    \"pais\": \"Peru\",\n    \"fecha_nacimiento\": \"1999-02-25\"\n}",
+							"raw": "{\n    \"nombre\": \"Jose Gabriel\",\n    \"dni\": \"77024104\",\n    \"apellido\": \"Gonzales Ramos\",\n    \"direccion\": \"Freire 2197 Piso 6 Camarones, Región de Arica y Parinacota, 1664830\",\n    \"pais\": \"Peru\",\n    \"fecha_nacimiento\": \"1999-02-25\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,7 +80,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nombre\": \"Camilo\",\n    \"apellido\": \"Ruidia Chavez\",\n    \"direccion\": \"Jr. Almirante Guisse, 597 Callao Cercado, 07021\",\n    \"pais\": \"Peru\",\n    \"fecha_nacimiento\": \"1999-03-25\"\n}",
+							"raw": "{\n    \"nombre\": \"Jose Gabriel\",\n    \"dni\": \"77\",\n    \"apellido\": \"Gonzales Ramos\",\n    \"direccion\": \"Freire 2197 Piso 6 Camarones, Región de Arica y Parinacota, 1664830\",\n    \"pais\": \"Peru\",\n    \"fecha_nacimiento\": \"1999-02-25\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -88,13 +88,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/alumno/5001",
+							"raw": "{{url}}/alumno/2501",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"alumno",
-								"5001"
+								"2501"
 							]
 						},
 						"description": "Este endpoint actualiza los datos de un alumno específico identificado por su **ID** previamente registrado utilizando la información en formato **JSON**.  \nLos siguientes campos son obligatorios en el cuerpo de la solicitud **JSON** para actualizar los datos:\n\n- `nombre` : El nombre del alumno\n    \n- `apellido` : El apellido del alumno\n    \n- **`direccion`** **:** La dirección del alumno\n    \n- **`pais`**: El país de residencia del alumno\n    \n- **`fecha_nacimiento`**: La fecha de nacimiento del alumno en formato **YYYY-MM-DD**"
@@ -107,13 +107,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/alumno/5001",
+							"raw": "{{url}}/alumno/2501",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"alumno",
-								"5001"
+								"2501"
 							]
 						},
 						"description": "Este endpoint te permite borrar de manera definitiva todos los datos asociados a un alumno específico identificado por su **ID**.\n\nParámetros de la solicitud:\n\n- `id` : identificador único del alumno a eliminar"
@@ -126,7 +126,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/busqueda_alumnos?nombre=Gabriel&apellido=Gon&pais=Chile",
+							"raw": "{{url}}/busqueda_alumnos?nombre=Jose&apellido=Ra&pais=Mexico&dni=2",
 							"host": [
 								"{{url}}"
 							],
@@ -136,15 +136,19 @@
 							"query": [
 								{
 									"key": "nombre",
-									"value": "Gabriel"
+									"value": "Jose"
 								},
 								{
 									"key": "apellido",
-									"value": "Gon"
+									"value": "Ra"
 								},
 								{
 									"key": "pais",
-									"value": "Chile"
+									"value": "Mexico"
+								},
+								{
+									"key": "dni",
+									"value": "2"
 								}
 							]
 						},
@@ -255,13 +259,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/curso/25",
+							"raw": "{{url}}/curso/15",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"curso",
-								"25"
+								"15"
 							]
 						},
 						"description": "Este endpoint te permite borrar de manera definitiva todos los datos asociados a un curso específico identificado por su **ID**.\n\nParámetros de la solicitud:\n\n- `id` : identificador único del curso a eliminar"
@@ -308,7 +312,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id_alumno\": \"3395\",\n    \"id_curso\": \"15\"\n}",
+							"raw": "{\n    \"id_alumno\": \"123\",\n    \"id_curso\": \"8\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -335,7 +339,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id_alumno\": \"3547\",\n    \"id_curso\": \"30\"\n}",
+							"raw": "{\n    \"id_alumno\": \"123\",\n    \"id_curso\": \"8\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

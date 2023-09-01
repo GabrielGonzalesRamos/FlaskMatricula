@@ -9,10 +9,12 @@ class AlumnosController(Resource):
     def get(self):
         alumnos = base_de_datos.session.query(AlumnoModel).all()
         if alumnos:
+            alumnos_cursos = [i.json() for i in alumnos]
+            cantidad_cursos = [len(i.alumnoRegistrados) for i in alumnos]
             return {
                 'success': True,
                 'message': 'Cantidad total de alumnos {}'.format(base_de_datos.session.query(AlumnoModel).count()),
-                'content': [i.json() for i in alumnos]
+                'content': sorted([{**j, 'cantidad_cursos_matriculados': i} for i, j in zip(cantidad_cursos, alumnos_cursos)], key=lambda x: x['cantidad_cursos_matriculados'], reverse=True)
                 }, 200
         else:
             return {

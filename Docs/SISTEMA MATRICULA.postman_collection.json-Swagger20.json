@@ -68,7 +68,7 @@
         }
       }
     },
-    "/alumno/100": {
+    "/alumno/123": {
       "get": {
         "description": "Este endpoint permite obtener la información detallada de un único alumno utilizando su identificador único.\n\nParámetros de la solicitud:\n\n- `id`: identificador único del alumno a consultar",
         "summary": "/alumno/<id>",
@@ -89,7 +89,7 @@
         }
       }
     },
-    "/alumno/5001": {
+    "/alumno/2501": {
       "put": {
         "description": "Este endpoint actualiza los datos de un alumno específico identificado por su **ID** previamente registrado utilizando la información en formato **JSON**.  \nLos siguientes campos son obligatorios en el cuerpo de la solicitud **JSON** para actualizar los datos:\n\n- `nombre` : El nombre del alumno\n    \n- `apellido` : El apellido del alumno\n    \n- **`direccion`** **:** La dirección del alumno\n    \n- **`pais`**: El país de residencia del alumno\n    \n- **`fecha_nacimiento`**: La fecha de nacimiento del alumno en formato **YYYY-MM-DD**",
         "summary": "/alumno/<id>",
@@ -171,6 +171,14 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": ""
+          },
+          {
+            "name": "dni",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
             "description": ""
           }
         ],
@@ -280,9 +288,7 @@
             "headers": {}
           }
         }
-      }
-    },
-    "/curso/25": {
+      },
       "delete": {
         "description": "Este endpoint te permite borrar de manera definitiva todos los datos asociados a un curso específico identificado por su **ID**.\n\nParámetros de la solicitud:\n\n- `id` : identificador único del curso a eliminar",
         "summary": "/curso/<id>1",
@@ -406,6 +412,7 @@
       "title": "/alumnosrequest",
       "example": {
         "nombre": "Jose Gabriel",
+        "dni": "77024104",
         "apellido": "Gonzales Ramos",
         "direccion": "Freire 2197 Piso 6 Camarones, Región de Arica y Parinacota, 1664830",
         "pais": "Peru",
@@ -416,6 +423,9 @@
         "nombre": {
           "type": "string"
         },
+        "dni": {
+          "type": "string"
+        },
         "apellido": {
           "type": "string"
         },
@@ -431,6 +441,7 @@
       },
       "required": [
         "nombre",
+        "dni",
         "apellido",
         "direccion",
         "pais",
@@ -440,15 +451,19 @@
     "/alumno/<id>request": {
       "title": "/alumno/<id>request",
       "example": {
-        "nombre": "Camilo",
-        "apellido": "Ruidia Chavez",
-        "direccion": "Jr. Almirante Guisse, 597 Callao Cercado, 07021",
+        "nombre": "Jose Gabriel",
+        "dni": "77",
+        "apellido": "Gonzales Ramos",
+        "direccion": "Freire 2197 Piso 6 Camarones, Región de Arica y Parinacota, 1664830",
         "pais": "Peru",
-        "fecha_nacimiento": "1999-03-25"
+        "fecha_nacimiento": "1999-02-25"
       },
       "type": "object",
       "properties": {
         "nombre": {
+          "type": "string"
+        },
+        "dni": {
           "type": "string"
         },
         "apellido": {
@@ -466,6 +481,7 @@
       },
       "required": [
         "nombre",
+        "dni",
         "apellido",
         "direccion",
         "pais",
@@ -525,8 +541,8 @@
     "/matricularequest": {
       "title": "/matricularequest",
       "example": {
-        "id_alumno": "3395",
-        "id_curso": "15"
+        "id_alumno": "123",
+        "id_curso": "8"
       },
       "type": "object",
       "properties": {

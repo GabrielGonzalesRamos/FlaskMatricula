@@ -4,7 +4,7 @@ info:
   title: SISTEMA MATRICULA
   contact: 
     email: "jose.gabriel.gonzales.ramos@gmail.com"
-    name: "JOSÉ GABRIEL GONZALES RAMOS"
+    name: "José Gabriel Gonzales Ramos"
 host: localhost:5000
 basePath: /
 securityDefinitions: {}
@@ -88,7 +88,7 @@ paths:
       parameters:
         - name: "id"
           in: "path"
-          description: "identificador único del alumno a consultar"
+          description: "Id del alumno"
           required: True
           type: "integer"
       responses:
@@ -123,17 +123,18 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: "id"
-          in: "path"
-          description: "identificador único del alumno a modificar"
-          required: True
-          type: "integer"
         - name: Body
           in: body
           required: true
           description: ''
           schema:
             $ref: '#/definitions/~1alumno~1%3Cid%3Erequest'
+            
+        - name: "id"
+          in: "path"
+          description: "Id del alumno"
+          required: True
+          type: "integer"            
       responses:
         '200':
           description: ''
@@ -158,9 +159,10 @@ paths:
       parameters:
         - name: "id"
           in: "path"
-          description: "identificador único del alumno a eliminar"
+          description: "Id del alumno"
           required: True
           type: "integer"
+          
       responses:
         '200':
           description: ''
@@ -200,13 +202,20 @@ paths:
           required: false
           type: "array"
           description: ''
-          items:
-            enum:
-            - "Mexico"
-            - "Chile"
-            - "Colombia"
-            - "Argentina"
-            - "Peru"
+          items: 
+            type: "string"
+            enum: 
+              - "Mexico"
+              - "Chile"
+              - "Colombia"
+              - "Argentina"
+              - "Peru"
+        - name: dni
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: ''
       responses:
         '200':
           description: ''
@@ -280,9 +289,10 @@ paths:
       parameters:
         - name: "id"
           in: "path"
-          description: "identificador único del curso a consultar"
+          description: "Id del curso"
           required: True
           type: "integer"
+          
       responses:
         '200':
           description: ''
@@ -311,17 +321,18 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: "id"
-          in: "path"
-          description: "identificador único del curso a consultar"
-          required: True
-          type: "integer"      
         - name: Body
           in: body
           required: true
           description: ''
           schema:
             $ref: '#/definitions/~1curso~1%3Cid%3Erequest'
+            
+        - name: "id"
+          in: "path"
+          description: "Id del curso"
+          required: True
+          type: "integer"
       responses:
         '200':
           description: ''
@@ -346,15 +357,16 @@ paths:
       parameters:
         - name: "id"
           in: "path"
-          description: "identificador único del curso a eliminar"
+          description: "Id del alumno"
           required: True
           type: "integer"
+          
       responses:
         '200':
           description: ''
           headers: {}
   /busqueda_cursos:
-    get: 
+    get:
       description: >-
         Este endpoint te permite obtener un resultado específico al filtrar la
         lista total de curso en función de los siguientes criterios:
@@ -448,6 +460,7 @@ definitions:
     title: /alumnosrequest
     example:
       nombre: Jose Gabriel
+      dni: '77024104'
       apellido: Gonzales Ramos
       direccion: Freire 2197 Piso 6 Camarones, Región de Arica y Parinacota, 1664830
       pais: Peru
@@ -456,6 +469,8 @@ definitions:
     properties:
       nombre:
         type: string
+      dni:
+        type: string
       apellido:
         type: string
       direccion:
@@ -466,6 +481,7 @@ definitions:
         type: string
     required:
       - nombre
+      - dni
       - apellido
       - direccion
       - pais
@@ -473,14 +489,17 @@ definitions:
   /alumno/<id>request:
     title: /alumno/<id>request
     example:
-      nombre: Camilo
-      apellido: Ruidia Chavez
-      direccion: Jr. Almirante Guisse, 597 Callao Cercado, 07021
+      nombre: Jose Gabriel
+      dni: '77'
+      apellido: Gonzales Ramos
+      direccion: Freire 2197 Piso 6 Camarones, Región de Arica y Parinacota, 1664830
       pais: Peru
-      fecha_nacimiento: '1999-03-25'
+      fecha_nacimiento: '1999-02-25'
     type: object
     properties:
       nombre:
+        type: string
+      dni:
         type: string
       apellido:
         type: string
@@ -492,6 +511,7 @@ definitions:
         type: string
     required:
       - nombre
+      - dni
       - apellido
       - direccion
       - pais
@@ -535,8 +555,8 @@ definitions:
   /matricularequest:
     title: /matricularequest
     example:
-      id_alumno: '3395'
-      id_curso: '15'
+      id_alumno: '123'
+      id_curso: '8'
     type: object
     properties:
       id_alumno:

@@ -73,18 +73,19 @@ class CursoController(Resource):
             curso.cursoNombre = data.get('nombre')
             curso.cursoFechaInicio = data.get('fecha_inicio')
             curso.cursoFechaFin = data.get('fecha_fin')
-            curso.save()
-            return {
-                'success': True,
-                'content': [curso_viejo.json(), curso.json()],
-                'message': 'Curso actualizado correctamente'
-            }, 200
-        else:
-            return {
-                'success': False,
-                'content': None,
-                'message': 'Curso no registrado'
-            }, 404
+            try:
+                curso.save()
+                return {
+                    'success': True,
+                    'content': [curso_viejo.json(), curso.json()],
+                    'message': 'Curso actualizado correctamente'
+                    }, 200
+            except Exception as E:
+                return {
+                    'success': False,
+                    'content': None,
+                    'message': 'Curso no registrado'
+                    }, 404
 
     def delete(self, id):
         curso = base_de_datos.session.query(CursoModel).filter_by(cursoId=id)

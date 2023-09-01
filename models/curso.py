@@ -1,5 +1,5 @@
 from config.conexion_bd import base_de_datos
-from sqlalchemy import Column, types, orm
+from sqlalchemy import Column, types, orm, UniqueConstraint
 
 class CursoModel(base_de_datos.Model):
     __tablename__ = 'TB_CURSO'
@@ -9,6 +9,10 @@ class CursoModel(base_de_datos.Model):
     cursoFechaFin = Column(name='FECHA_FIN', type_=types.Date)
 
     cursoRegistrados = orm.relationship('AlumnoCursoModel', backref='registroCurso', lazy=True, cascade='all, delete-orphan')
+
+    __table_args__ = (
+        UniqueConstraint('NOMBRE', name='avoid_duplicate_tb_curso'),
+    )
 
     def __init__(self, nombre, fecha_inicio, fecha_fin):
         self.cursoNombre = nombre

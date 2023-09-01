@@ -5,7 +5,7 @@
     "title": "SISTEMA MATRICULA",
     "contact": {
       "email": "jose.gabriel.gonzales.ramos@gmail.com",
-      "name": "JOSÉ GABRIEL GONZALES RAMOS"
+      "name": "José Gabriel Gonzales Ramos"
     }
   },
   "host": "localhost:5000",
@@ -88,7 +88,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "identificador único del alumno a consultar",
+            "description": "Id del alumno",
             "required": true,
             "type": "integer"
           }
@@ -113,13 +113,6 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "identificador único del alumno a modificar",
-            "required": true,
-            "type": "integer"
-          },
-          {
             "name": "Body",
             "in": "body",
             "required": true,
@@ -127,6 +120,13 @@
             "schema": {
               "$ref": "#/definitions/~1alumno~1%3Cid%3Erequest"
             }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id del alumno",
+            "required": true,
+            "type": "integer"
           }
         ],
         "responses": {
@@ -151,7 +151,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "identificador único del alumno a eliminar",
+            "description": "Id del alumno",
             "required": true,
             "type": "integer"
           }
@@ -198,6 +198,7 @@
             "type": "array",
             "description": "",
             "items": {
+              "type": "string",
               "enum": [
                 "Mexico",
                 "Chile",
@@ -206,6 +207,14 @@
                 "Peru"
               ]
             }
+          },
+          {
+            "name": "dni",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
           }
         ],
         "responses": {
@@ -282,7 +291,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "identificador único del curso a consultar",
+            "description": "Id del curso",
             "required": true,
             "type": "integer"
           }
@@ -307,13 +316,6 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "identificador único del curso a consultar",
-            "required": true,
-            "type": "integer"
-          },
-          {
             "name": "Body",
             "in": "body",
             "required": true,
@@ -321,6 +323,13 @@
             "schema": {
               "$ref": "#/definitions/~1curso~1%3Cid%3Erequest"
             }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id del curso",
+            "required": true,
+            "type": "integer"
           }
         ],
         "responses": {
@@ -345,7 +354,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "identificador único del curso a eliminar",
+            "description": "Id del alumno",
             "required": true,
             "type": "integer"
           }
@@ -461,6 +470,7 @@
       "title": "/alumnosrequest",
       "example": {
         "nombre": "Jose Gabriel",
+        "dni": "77024104",
         "apellido": "Gonzales Ramos",
         "direccion": "Freire 2197 Piso 6 Camarones, Región de Arica y Parinacota, 1664830",
         "pais": "Peru",
@@ -471,6 +481,9 @@
         "nombre": {
           "type": "string"
         },
+        "dni": {
+          "type": "string"
+        },
         "apellido": {
           "type": "string"
         },
@@ -486,6 +499,7 @@
       },
       "required": [
         "nombre",
+        "dni",
         "apellido",
         "direccion",
         "pais",
@@ -495,15 +509,19 @@
     "/alumno/<id>request": {
       "title": "/alumno/<id>request",
       "example": {
-        "nombre": "Camilo",
-        "apellido": "Ruidia Chavez",
-        "direccion": "Jr. Almirante Guisse, 597 Callao Cercado, 07021",
+        "nombre": "Jose Gabriel",
+        "dni": "77",
+        "apellido": "Gonzales Ramos",
+        "direccion": "Freire 2197 Piso 6 Camarones, Región de Arica y Parinacota, 1664830",
         "pais": "Peru",
-        "fecha_nacimiento": "1999-03-25"
+        "fecha_nacimiento": "1999-02-25"
       },
       "type": "object",
       "properties": {
         "nombre": {
+          "type": "string"
+        },
+        "dni": {
           "type": "string"
         },
         "apellido": {
@@ -521,6 +539,7 @@
       },
       "required": [
         "nombre",
+        "dni",
         "apellido",
         "direccion",
         "pais",
@@ -580,8 +599,8 @@
     "/matricularequest": {
       "title": "/matricularequest",
       "example": {
-        "id_alumno": "3395",
-        "id_curso": "15"
+        "id_alumno": "123",
+        "id_curso": "8"
       },
       "type": "object",
       "properties": {
