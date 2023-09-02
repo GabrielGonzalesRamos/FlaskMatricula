@@ -34,6 +34,12 @@ class MatriculaController(Resource):
                     'content': [i.registroCurso.cursoNombre for i in cursoMatricula.all()],
                     'message': f'El alumno {alumnoMatricula.alumnoNombre} {alumnoMatricula.alumnoApellido} ya se encuentra matriculado en el curso'
                 }, 404
+        else:
+            return {
+                'success': False,
+                'content': None,
+                'message': 'Revisar si el id_alumno o id_curso es váido'
+            }, 404
     
     def delete(self):
         data = serializerMatricula.parse_args()
