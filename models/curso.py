@@ -1,17 +1,18 @@
 from config.conexion_bd import base_de_datos
-from sqlalchemy import Column, types, orm, UniqueConstraint
+from sqlalchemy import Column, types, orm, UniqueConstraint, CheckConstraint
 
 class CursoModel(base_de_datos.Model):
-    __tablename__ = 'TB_CURSO'
-    cursoId = Column(name='ID', primary_key=True, autoincrement=True, unique=True, type_=types.Integer, nullable=False)
-    cursoNombre = Column(name='NOMBRE', unique=True, type_=types.String(length=100), nullable=False)
-    cursoFechaInicio = Column(name='FECHA_INICIO', type_=types.Date)
-    cursoFechaFin = Column(name='FECHA_FIN', type_=types.Date)
+    __tablename__ = 'tb_curso'
+    cursoId = Column(name='id', primary_key=True, autoincrement=True, unique=True, type_=types.Integer, nullable=False)
+    cursoNombre = Column(name='nombre', unique=True, type_=types.String(length=100), nullable=False)
+    cursoFechaInicio = Column(name='fecha_inicio', type_=types.Date)
+    cursoFechaFin = Column(name='fecha_fin', type_=types.Date)
 
     cursoRegistrados = orm.relationship('AlumnoCursoModel', backref='registroCurso', lazy=True, cascade='all, delete-orphan')
 
     __table_args__ = (
-        UniqueConstraint('NOMBRE', name='avoid_duplicate_tb_curso'),
+        UniqueConstraint('nombre', name='avoid_duplicate_tb_curso'),
+        CheckConstraint('fecha_inicio < fecha_fin')
     )
 
     def __init__(self, nombre, fecha_inicio, fecha_fin):

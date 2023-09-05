@@ -47,6 +47,7 @@ class AlumnosController(Resource):
                 'message': 'Alumno registrado',
                 }, 201
         except Exception as E:
+            print(E)
             return {
                 'success': False,
                 'content': None,

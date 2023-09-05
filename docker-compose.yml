@@ -4,23 +4,40 @@ networks:
     driver: bridge
 
 services:
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: mssql
+  psql:
+    image: docker.io/library/postgres:15.4
+    container_name: psql
     ports:
-      - 1433:1433
+      - 5432:5432
     environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=${DATABASE_PASSWORD}
-      - MSSQL_PID=Developer
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
     volumes:
-    - ~/Documentos/TECSUP/C1/FGD/S15/mssql/data:/var/opt/mssql
+    - ~/Documentos/TECSUP/C1/FGD/S15/psql/data:/var/lib/postgresql/data
     networks:
       - flask-network
     healthcheck:
-      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "${DATABASE_PASSWORD}", "-d", "${DATABASE_NAME}", "-Q", "SELECT 1"]
+      test: ["CMD", "psql", "-U", "${DATABASE_USER}", "-w", "${DATABASE_PASSWORD}", "-d", "${DATABASE_NAME}", "-c", "SELECT 1"]
       timeout: 20s
       retries: 3
+  # mssql:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   container_name: mssql
+  #   ports:
+  #     - 1433:1433
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - MSSQL_SA_PASSWORD=${DATABASE_PASSWORD}
+  #     - MSSQL_PID=Developer
+  #   volumes:
+  #   - ~/Documentos/TECSUP/C1/FGD/S15/mssql/data:/var/opt/mssql
+  #   networks:
+  #     - flask-network
+  #   healthcheck:
+  #     test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "${DATABASE_PASSWORD}", "-d", "${DATABASE_NAME}", "-Q", "SELECT 1"]
+  #     timeout: 20s
+  #     retries: 3
   flask:
     image: docker.io/gabrielgonzales/gg-dev:GDR-001
     container_name: flask
@@ -31,7 +48,7 @@ services:
     networks:
       - flask-network
     depends_on:
-      - mssql
+      - psql
   ngrok:
     image: ngrok/ngrok:alpine
     container_name: ngrok

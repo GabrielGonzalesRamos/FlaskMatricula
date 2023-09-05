@@ -38,16 +38,17 @@ paths:
         Este endpoint permite registrar un nuevo alumno proporcionando la
         siguiente información en formato **JSON**:  
 
+        - **`dni`** : El documento nacional de identidad del alumno
 
-        - `nombre` : El nombre del alumno
+        - **`nombre`** : El nombre del alumno
             
-        - `apellido` : El apellido del alumno
+        - **`apellido`** : El apellido del alumno
             
-        - `direccion`: La dirección del alumno
+        - **`direccion`**: La dirección del alumno
             
-        - `pais`: El país de residencia del alumno
+        - **`pais`**: El país de residencia del alumno
             
-        - `fecha_nacimiento`: La fecha de nacimiento del alumno en formato
+        - **`fecha_nacimiento`**: La fecha de nacimiento del alumno en formato
         **YYYY-MM-DD**
       summary: /alumnos
       tags:
@@ -77,7 +78,7 @@ paths:
         Parámetros de la solicitud:
 
 
-        - `id`: identificador único del alumno a consultar
+        - **`id`**: identificador único del alumno a consultar
       summary: /alumno/<id>
       tags:
         - ALUMNOS
@@ -104,10 +105,11 @@ paths:
         Los siguientes campos son obligatorios en el cuerpo de la solicitud
         **JSON** para actualizar los datos:
 
+        - **`dni`** : El documento nacional de identidad del alumno
 
-        - `nombre` : El nombre del alumno
+        - **`nombre`** : El nombre del alumno
             
-        - `apellido` : El apellido del alumno
+        - **`apellido`** : El apellido del alumno
             
         - **`direccion`** **:** La dirección del alumno
             
@@ -148,7 +150,7 @@ paths:
         Parámetros de la solicitud:
 
 
-        - `id` : identificador único del alumno a eliminar
+        - **`id`** : identificador único del alumno a eliminar
       summary: /alumno/<id>
       tags:
         - ALUMNOS
@@ -174,11 +176,13 @@ paths:
         lista total de alumnos en función de los siguientes criterios:
 
 
-        - `nombre`: El nombre del alumno
+        - **`nombre`**: El nombre del alumno
 
-        - `apellido`: El apellido del alumno
+        - **`apellido`**: El apellido del alumno
 
-        - `pais`: El país de residencia del alumno
+        - **`pais`**: El país de residencia del alumno
+
+        - **`dni`**: El documento nacional de identidad del alumno
       summary: /busqueda_alumnos
       tags:
         - ALUMNOS
@@ -243,12 +247,12 @@ paths:
         disponibles proporcionando la siguiente información en formato **JSON**:
 
 
-        - `nombre`: El nombre del curso a dictar
+        - **`nombre`**: El nombre del curso a dictar
             
-        - `fecha_inicio`: La fecha de inicio del nuevo curso en formato
+        - **`fecha_inicio`**: La fecha de inicio del nuevo curso en formato
         **YYYY-MM-DD**
             
-        - `fecha_fin`: La fecha de culminación del nuevo curso en formato
+        - **`fecha_fin`**: La fecha de culminación del nuevo curso en formato
         **YYYY-MM-DD**
       summary: /cursos
       tags:
@@ -278,7 +282,7 @@ paths:
         Parámetros de la solicitud:
 
 
-        - `id`: identificador único del curso a consultar
+        - **`id`**: identificador único del curso a consultar
       summary: /curso/<id>
       tags:
         - CURSOS
@@ -307,11 +311,11 @@ paths:
         **JSON** para actualizar los datos:
 
 
-        - `nombre` : El nombre del curso a dictar
+        - **`nombre`** : El nombre del curso a dictar
             
-        - `fecha_inicio`: La fecha de inicio del curso en formato **YYYY-MM-DD**
+        - **`fecha_inicio`**: La fecha de inicio del curso en formato **YYYY-MM-DD**
             
-        - `fecha_fin`: La fecha de culminación del curso en formato
+        - **`fecha_fin`**: La fecha de culminación del curso en formato
         **YYYY-MM-DD**
       summary: /curso/<id>
       tags:
@@ -346,7 +350,7 @@ paths:
         Parámetros de la solicitud:
 
 
-        - `id` : identificador único del curso a eliminar
+        - **`id`** : identificador único del curso a eliminar
       summary: /curso/<id>
       tags:
         - CURSOS
@@ -372,9 +376,9 @@ paths:
         lista total de curso en función de los siguientes criterios:
 
 
-        - `nombre`: El nombre del alumno a dictar
+        - **`nombre`**: El nombre del alumno a dictar
             
-        - `mes_inicio`: El mes de inicio del curso en formato númerico
+        - **`mes_inicio`**: El mes de inicio del curso en formato númerico
       summary: /busqueda_cursos
       tags:
         - CURSOS
@@ -406,9 +410,9 @@ paths:
         **JSON**:
 
 
-        - `id_alumno`: identificador único del alumno
+        - **`id_alumno`**: identificador único del alumno
             
-        - `id_curso`: identificador único del curso
+        - **`id_curso`**: identificador único del curso
       summary: /matricula
       tags:
         - MATRICULAS
@@ -434,9 +438,9 @@ paths:
         **JSON**:
 
 
-        - `id_alumno`: identificador único del alumno
+        - **`id_alumno`**: identificador único del alumno
             
-        - `id_curso`: identificador único del curso
+        - **`id_curso`**: identificador único del curso
       summary: /matricula
       tags:
         - MATRICULAS

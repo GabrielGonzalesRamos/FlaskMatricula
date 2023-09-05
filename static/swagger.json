@@ -43,7 +43,7 @@
         }
       },
       "post": {
-        "description": "Este endpoint permite registrar un nuevo alumno proporcionando la siguiente información en formato **JSON**:  \n\n- `nombre` : El nombre del alumno\n    \n- `apellido` : El apellido del alumno\n    \n- `direccion`: La dirección del alumno\n    \n- `pais`: El país de residencia del alumno\n    \n- `fecha_nacimiento`: La fecha de nacimiento del alumno en formato **YYYY-MM-DD**",
+        "description": "Este endpoint permite registrar un nuevo alumno proporcionando la siguiente información en formato **JSON**:  \n- **`dni`** : El documento nacional de identidad del alumno\n- **`nombre`** : El nombre del alumno\n    \n- **`apellido`** : El apellido del alumno\n    \n- **`direccion`**: La dirección del alumno\n    \n- **`pais`**: El país de residencia del alumno\n    \n- **`fecha_nacimiento`**: La fecha de nacimiento del alumno en formato **YYYY-MM-DD**",
         "summary": "/alumnos",
         "tags": [
           "ALUMNOS"
@@ -74,7 +74,7 @@
     },
     "/alumno/{id}": {
       "get": {
-        "description": "Este endpoint permite obtener la información detallada de un único alumno utilizando su identificador único.\n\nParámetros de la solicitud:\n\n- `id`: identificador único del alumno a consultar",
+        "description": "Este endpoint permite obtener la información detallada de un único alumno utilizando su identificador único.\n\nParámetros de la solicitud:\n\n- **`id`**: identificador único del alumno a consultar",
         "summary": "/alumno/<id>",
         "tags": [
           "ALUMNOS"
@@ -101,7 +101,7 @@
         }
       },
       "put": {
-        "description": "Este endpoint actualiza los datos de un alumno específico identificado por su **ID** previamente registrado utilizando la información en formato **JSON**.  \nLos siguientes campos son obligatorios en el cuerpo de la solicitud **JSON** para actualizar los datos:\n\n- `nombre` : El nombre del alumno\n    \n- `apellido` : El apellido del alumno\n    \n- **`direccion`** **:** La dirección del alumno\n    \n- **`pais`**: El país de residencia del alumno\n    \n- **`fecha_nacimiento`**: La fecha de nacimiento del alumno en formato **YYYY-MM-DD**",
+        "description": "Este endpoint actualiza los datos de un alumno específico identificado por su **ID** previamente registrado utilizando la información en formato **JSON**.  \nLos siguientes campos son obligatorios en el cuerpo de la solicitud **JSON** para actualizar los datos:\n- **`dni`** : El documento nacional de identidad del alumno\n- **`nombre`** : El nombre del alumno\n    \n- **`apellido`** : El apellido del alumno\n    \n- **`direccion`** **:** La dirección del alumno\n    \n- **`pais`**: El país de residencia del alumno\n    \n- **`fecha_nacimiento`**: La fecha de nacimiento del alumno en formato **YYYY-MM-DD**",
         "summary": "/alumno/<id>",
         "tags": [
           "ALUMNOS"
@@ -137,7 +137,7 @@
         }
       },
       "delete": {
-        "description": "Este endpoint te permite borrar de manera definitiva todos los datos asociados a un alumno específico identificado por su **ID**.\n\nParámetros de la solicitud:\n\n- `id` : identificador único del alumno a eliminar",
+        "description": "Este endpoint te permite borrar de manera definitiva todos los datos asociados a un alumno específico identificado por su **ID**.\n\nParámetros de la solicitud:\n\n- **`id`** : identificador único del alumno a eliminar",
         "summary": "/alumno/<id>",
         "tags": [
           "ALUMNOS"
@@ -166,7 +166,7 @@
     },
     "/busqueda_alumnos": {
       "get": {
-        "description": "Este endpoint te permite obtener un resultado específico al filtrar la lista total de alumnos en función de los siguientes criterios:\n\n- `nombre`: El nombre del alumno\n- `apellido`: El apellido del alumno\n- `pais`: El país de residencia del alumno",
+        "description": "Este endpoint te permite obtener un resultado específico al filtrar la lista total de alumnos en función de los siguientes criterios:\n\n- **`nombre`**: El nombre del alumno\n- **`apellido`**: El apellido del alumno\n- **`pais`**: El país de residencia del alumno\n- **`dni`**: El documento nacional de identidad del alumno",
         "summary": "/busqueda_alumnos",
         "tags": [
           "ALUMNOS"
@@ -246,7 +246,7 @@
         }
       },
       "post": {
-        "description": "Este endpoint permite agregar un nuevo curso a la lista de cursos disponibles proporcionando la siguiente información en formato **JSON**:\n\n- `nombre`: El nombre del curso a dictar\n    \n- `fecha_inicio`: La fecha de inicio del nuevo curso en formato **YYYY-MM-DD**\n    \n- `fecha_fin`: La fecha de culminación del nuevo curso en formato **YYYY-MM-DD**",
+        "description": "Este endpoint permite agregar un nuevo curso a la lista de cursos disponibles proporcionando la siguiente información en formato **JSON**:\n\n- **`nombre`**: El nombre del curso a dictar\n    \n- **`fecha_inicio`**: La fecha de inicio del nuevo curso en formato **YYYY-MM-DD**\n    \n- **`fecha_fin`**: La fecha de culminación del nuevo curso en formato **YYYY-MM-DD**",
         "summary": "/cursos",
         "tags": [
           "CURSOS"
@@ -277,7 +277,7 @@
     },
     "/curso/{id}": {
       "get": {
-        "description": "Este endpoint permite obtener la información detallada de un único curso utilizando su identificador único.\n\nParámetros de la solicitud:\n\n- `id`: identificador único del curso a consultar",
+        "description": "Este endpoint permite obtener la información detallada de un único curso utilizando su identificador único.\n\nParámetros de la solicitud:\n\n- **`id`**: identificador único del curso a consultar",
         "summary": "/curso/<id>",
         "tags": [
           "CURSOS"
@@ -304,7 +304,7 @@
         }
       },
       "put": {
-        "description": "Este endpoint actualiza los datos de un curso específico identificado por su **ID** previamente registrado utilizando la información en formato **JSON**.  \nLos siguientes campos son obligatorios en el cuerpo de la solicitud **JSON** para actualizar los datos:\n\n- `nombre` : El nombre del curso a dictar\n    \n- `fecha_inicio`: La fecha de inicio del curso en formato **YYYY-MM-DD**\n    \n- `fecha_fin`: La fecha de culminación del curso en formato **YYYY-MM-DD**",
+        "description": "Este endpoint actualiza los datos de un curso específico identificado por su **ID** previamente registrado utilizando la información en formato **JSON**.  \nLos siguientes campos son obligatorios en el cuerpo de la solicitud **JSON** para actualizar los datos:\n\n- **`nombre`** : El nombre del curso a dictar\n    \n- **`fecha_inicio`**: La fecha de inicio del curso en formato **YYYY-MM-DD**\n    \n- **`fecha_fin`**: La fecha de culminación del curso en formato **YYYY-MM-DD**",
         "summary": "/curso/<id>",
         "tags": [
           "CURSOS"
@@ -340,7 +340,7 @@
         }
       },
       "delete": {
-        "description": "Este endpoint te permite borrar de manera definitiva todos los datos asociados a un curso específico identificado por su **ID**.\n\nParámetros de la solicitud:\n\n- `id` : identificador único del curso a eliminar",
+        "description": "Este endpoint te permite borrar de manera definitiva todos los datos asociados a un curso específico identificado por su **ID**.\n\nParámetros de la solicitud:\n\n- **`id`** : identificador único del curso a eliminar",
         "summary": "/curso/<id>",
         "tags": [
           "CURSOS"
@@ -369,7 +369,7 @@
     },
     "/busqueda_cursos": {
       "get": {
-        "description": "Este endpoint te permite obtener un resultado específico al filtrar la lista total de curso en función de los siguientes criterios:\n\n- `nombre`: El nombre del alumno a dictar\n    \n- `mes_inicio`: El mes de inicio del curso en formato númerico",
+        "description": "Este endpoint te permite obtener un resultado específico al filtrar la lista total de curso en función de los siguientes criterios:\n\n- **`nombre`**: El nombre del alumno a dictar\n    \n- **`mes_inicio`**: El mes de inicio del curso en formato númerico",
         "summary": "/busqueda_cursos",
         "tags": [
           "CURSOS"
@@ -406,7 +406,7 @@
     },
     "/matricula": {
       "post": {
-        "description": "Este endpoint te permite inscribir a un alumno en un curso específico proporcionando la siguiente información en el cuerpo de la solicitud **JSON**:\n\n- `id_alumno`: identificador único del alumno\n    \n- `id_curso`: identificador único del curso",
+        "description": "Este endpoint te permite inscribir a un alumno en un curso específico proporcionando la siguiente información en el cuerpo de la solicitud **JSON**:\n\n- **`id_alumno`**: identificador único del alumno\n    \n- **`id_curso`**: identificador único del curso",
         "summary": "/matricula",
         "tags": [
           "MATRICULAS"
@@ -435,7 +435,7 @@
         }
       },
       "delete": {
-        "description": "Este endpoint te permite retirar a un alumno de un curso específico proporcionando la siguiente información en el cuerpo de la solicitud **JSON**:\n\n- `id_alumno`: identificador único del alumno\n    \n- `id_curso`: identificador único del curso",
+        "description": "Este endpoint te permite retirar a un alumno de un curso específico proporcionando la siguiente información en el cuerpo de la solicitud **JSON**:\n\n- **`id_alumno`**: identificador único del alumno\n    \n- **`id_curso`**: identificador único del curso",
         "summary": "/matricula",
         "tags": [
           "MATRICULAS"

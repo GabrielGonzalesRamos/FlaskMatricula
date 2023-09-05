@@ -1,7 +1,7 @@
 from test.unit.base_test import BaseTest
 import json
 
-class AlumnoTest(BaseTest):
+class RouteTest(BaseTest):
     def test_1_create_alumno_error_dni(self):
         request = self.app.post(
             '/alumnos', data=json.dumps(
@@ -104,9 +104,24 @@ class AlumnoTest(BaseTest):
         request_id = json.loads(request_get.data.decode('utf-8')).get('content')[0].get('id')
         request_delete = self.app.delete('/alumno/{}'.format(request_id))
         self.assertEqual(json.loads(request_delete.data).get('success'), True)
-
-
-
-
+    
+    def test_7_create_curso_error_fecha(self):
+        request = self.app.post(
+            '/cursos', data=json.dumps(
+                {
+                    'nombre': 'CURSO PRUEBA',
+                    'fecha_inicio': '2023-05-10',
+                    'fecha_fin': '2023-05-09'
+                }),
+                headers={'Content-Type': 'application/json'}
+        )
+        self.assertDictEqual(
+            {
+                'success': False,
+                'content': 'None',
+                'message': 'La fecha final del curso debe de ser mayor que la fecha de inicio'
+            },
+            json.loads(request.data)
+        )
         
 
