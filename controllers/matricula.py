@@ -10,13 +10,13 @@ class MatriculaController(Resource):
 
     def post(self):
         data = serializerMatricula.parse_args()
-        if len(base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=data.get('id_alumno')).first().alumnoRegistrados) >= 5:
-            return {
-                'success': False,
-                'content': None,
-                'message': f"El alumno {base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=data.get('id_alumno')).first().alumnoNombre} {base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=data.get('id_alumno')).first().alumnoApellido} ha superado el límite máximo de 5 cursos permitidos"
-            }, 404
         if base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=data.get('id_alumno')).first() and base_de_datos.session.query(CursoModel).filter_by(cursoId=data.get('id_curso')).first():
+            if len(base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=data.get('id_alumno')).first().alumnoRegistrados) >= 5:
+                return {
+                    'success': False,
+                    'content': None,
+                    'message': f"El alumno {base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=data.get('id_alumno')).first().alumnoNombre} {base_de_datos.session.query(AlumnoModel).filter_by(alumnoId=data.get('id_alumno')).first().alumnoApellido} ha superado el límite máximo de 5 cursos permitidos"
+                    }, 404
             try:
                 nuevaMatricula = AlumnoCursoModel(alumno=data.get('id_alumno'), curso=data.get('id_curso'))
                 nuevaMatricula.save()

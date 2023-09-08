@@ -4,7 +4,7 @@ from datetime import datetime
 
 class AlumnoTest(BaseTest):
     def test_alumnoModel(self):
-        with self.app_context:
+        with self.app_context():
             alumno = AlumnoModel(
                 dni = '25578190',
                 nombre = 'Walter Emiliano',

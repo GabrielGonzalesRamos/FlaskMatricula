@@ -11,7 +11,6 @@ class BaseTest(TestCase):
     @classmethod
     def setUpClass(cls):
         app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI_DEV')
-        base_de_datos.init_app(app)
         base_de_datos.create_all(app=app)
 
     @classmethod
@@ -19,5 +18,5 @@ class BaseTest(TestCase):
         base_de_datos.session.remove()
 
     def setUp(self):
-        self.app = app.test_client()
-        self.app_context = app.app_context()
+        self.app = app.test_client
+        self.app_context = app.app_context
