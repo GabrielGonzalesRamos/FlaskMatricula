@@ -18,4 +18,3 @@ class AlumnoTest(BaseTest):
             self.assertIsNotNone(AlumnoModel.query.filter_by(alumnoNombre='Walter Emiliano').first())
             alumno.delete()
             self.assertIsNone(AlumnoModel.query.filter_by(alumnoNombre='Walter Emiliano').first())
-            

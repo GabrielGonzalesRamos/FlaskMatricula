@@ -18,6 +18,12 @@ class CursosController(Resource):
                 'message': 'Cantidad total de cursos {}'.format(base_de_datos.session.query(CursoModel).count()),
                 'content': sorted([{**i, 'alumnos_matriculados': j} for i, j in zip(cursos_json, cantidad_alumnos)], key=lambda x: x['alumnos_matriculados'], reverse=True)
             }, 201
+        else:
+            return {
+                'success': False,
+                'message': 'No se registraron cursos',
+                'content': None
+            }, 404
             
     def post(self):
         data = serializerCursos.parse_args()
@@ -62,31 +68,32 @@ class CursoController(Resource):
     def put(self, id):
         curso = base_de_datos.session.query(CursoModel).filter_by(cursoId=id).first()
         data = serializerCursos.parse_args()
-        if curso and data.get('fecha_inicio') > data.get('fecha_fin'):
-            return {
-                'success': False,
-                'content': None,
-                'message': 'La fecha final del curso debe de ser mayor que la fecha de inicio'
-            }, 404
         if curso:
             curso_viejo = copy.deepcopy(curso)
             curso.cursoNombre = data.get('nombre')
             curso.cursoFechaInicio = data.get('fecha_inicio')
             curso.cursoFechaFin = data.get('fecha_fin')
-            try:
+            curso_viejo = copy.deepcopy(curso)
+            if not data.get('fecha_inicio') > data.get('fecha_fin'):
                 curso.save()
                 return {
                     'success': True,
                     'content': [curso_viejo.json(), curso.json()],
                     'message': 'Curso actualizado correctamente'
-                    }, 200
-            except Exception as E:
+                }, 200
+            else:
                 return {
                     'success': False,
                     'content': None,
-                    'message': 'Curso no registrado'
-                    }, 404
-
+                    'message': 'La fecha final del curso debe de ser mayor que la fecha de inicio'
+                }, 404
+        else:
+            return {
+                'success': False,
+                'content': None,
+                'message': 'Curso no registrado'
+            }, 404
+        
     def delete(self, id):
         curso = base_de_datos.session.query(CursoModel).filter_by(cursoId=id)
         if curso.first():

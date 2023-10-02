@@ -87,13 +87,13 @@ class AlumnoController(Resource):
                     'success': False,
                     'content': None,
                     'message': 'DNI debe de ser una cadena númerica de 8 dígitos'
-                }
+                }, 404
             alumno.save()
             return {
                 'success': True,
                 'content': [alumno_viejo.join_json_id(id), alumno.join_json_id(id)],
                 'message': 'Alumno actualizado correctamente'
-                }, 201
+                }, 200
         else:
             return {
                 'success': False,

@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from unittest import TestCase
 from app import app 
 from config.conexion_bd import base_de_datos
-from models.alumno import AlumnoModel
 
 load_dotenv()
 
@@ -16,6 +15,7 @@ class BaseTest(TestCase):
     @classmethod
     def tearDownClass(cls):
         base_de_datos.session.remove()
+        base_de_datos.drop_all(app=app)
 
     def setUp(self):
         self.app = app.test_client
