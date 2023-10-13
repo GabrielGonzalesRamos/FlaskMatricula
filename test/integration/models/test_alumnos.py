@@ -1,4 +1,5 @@
 from models.alumno import AlumnoModel
+from parameterized import parameterized
 from test.unit.base_test import BaseTest
 from datetime import datetime
 

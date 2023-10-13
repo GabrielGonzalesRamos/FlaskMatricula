@@ -1,62 +1,21 @@
 from test.unit.base_test import BaseTest
-import json
+from parameterized import parameterized
+from test.helper import create_alumno, create_curso, create_matricula
 
 class MatriculasTest(BaseTest):
-    def test_1_create_error_matricula_without_curso(self):
-        request_alumno = self.app().post('/alumnos', data=json.dumps(
-            {
-                'dni': '25578190',
-                'nombre': 'Walter Emiliano', 
-                'apellido': 'Gonzales Inga', 
-                'direccion': 'Calle Claudia Sánchez 3974 Tucapel, Región del Biobí, 0637100', 
-                "pais": "Peru",
-                'fecha_nacimiento': '1970-11-01', 
-            }), 
-            headers={'Content-Type': 'application/json'}
-            )
-        request_get_alumno = self.app().get('/busqueda_alumnos', query_string={"dni": "25578190"})
-        id_alumno = json.loads(request_get_alumno.data).get('content')[0].get('id')
-        request_create_error_matricula = self.app().post('/matricula', data = json.dumps(
-            {
-                "id_alumno": id_alumno,
-                "id_curso": "1"
-            }),
-            headers={'Content-Type': 'application/json'}
-            )
-        self.assertDictEqual(
-            {
-                'success': False,
-                'content': None,
-                'message': 'Revisar si el id_alumno o id_curso es váido'
-            },
-            json.loads(request_create_error_matricula.data)
-        )
-        request_delete_alumno = self.app().delete('alumno/{}'.format(id_alumno))
-        self.assertEqual(request_delete_alumno.status_code, 200)
-        
-    def test_2_create_error_matricula_without_alumno(self):
-        request_curso = self.app().post('/cursos', data=json.dumps(
-            {
-                "nombre": "CURSO DE PRUEBA",
-                "fecha_inicio": "2023-10-01",
-                "fecha_fin": "2023-10-02"
-            }),
-            headers={'Content-Type': 'application/json'}
-            )
-        request_get_curso = self.app().get('/busqueda_cursos', query_string={"nombre": "CURSO DE PRUEBA"})
-        id_curso = json.loads(request_get_curso.data).get('content')[0].get('id')
-        request_create_error_matricula = self.app().post('/matricula', data = json.dumps(
-            {
-                "id_alumno": "1",
-                "id_curso": id_curso
-            }),
-            headers={'Content-Type': 'application/json'}
-            )
-        self.assertDictEqual(
-            {
-                'success': False,
-                'content': None,
-                'message': 'Revisar si el id_alumno o id_curso es váido'
-            },
-            json.loads(request_create_error_matricula.data)
-        )
+
+    @parameterized.expand([
+        (1, 1, 'se ha matriculado exitosamente al curso'),
+        (1, 2, 'se ha matriculado exitosamente al curso'),
+        (1, 3, 'se ha matriculado exitosamente al curso'),
+        (1, 4, 'se ha matriculado exitosamente al curso'),
+        (1, 5, 'se ha matriculado exitosamente al curso'),
+        (1, 6, 'ha superado el límite máximo de 5 cursos permitidos'),
+        (10001, 100, 'Revisar si el id_alumno o id_curso es váido')        
+    ])
+    def test_create_matricula(self, id_alumno, id_curso, expected):
+        create_alumno(self.app)
+        create_curso(self.app)
+        request_matricula = create_matricula(self.app, id_alumno, id_curso)
+
+        self.assertRegex(request_matricula, r'{}'.format(expected))

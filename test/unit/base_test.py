@@ -14,7 +14,6 @@ class BaseTest(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        base_de_datos.session.remove()
         base_de_datos.drop_all(app=app)
 
     def setUp(self):

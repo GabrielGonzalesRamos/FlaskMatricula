@@ -21,8 +21,8 @@ class CursoTest(BaseTest):
     
     @parameterized.expand([
        ('CURSO DE PRUEBA', '2023-09-08', '2023-09-07',1, 'La fecha final del curso debe de ser mayor que la fecha de inicio'),
-       ('CURSO DE PRUEBA EDITADO', '2023-01-01', '2023-01-02',1, 'Curso actualizado correctamente'),
-       ('CURSO DE PRUEBA EDITADO', '2023-01-01', '2023-01-02',100, 'Curso no registrado')
+       ('CURSO DE PRUEBA', '2023-01-01', '2023-01-02',1, 'Curso actualizado correctamente'),
+       ('CURSO DE PRUEBA', '2023-01-01', '2023-01-02',100, 'Curso no registrado')
     ])
     def test_put_curso(self, nombre, fecha_inicio, fecha_fin, id, message):
         data = json.dumps(
