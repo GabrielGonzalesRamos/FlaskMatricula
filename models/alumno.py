@@ -19,7 +19,7 @@ class AlumnoModel(base_de_datos.Model):
         CheckConstraint('dni ~ \'^[0-9]{8}$\'', name='only_numbers_8_tb_alumno')
         )
 
-    def __init__(self, nombre, apellido, dni, direccion, pais, fecha_nacimiento):
+    def __init__(self, dni, nombre, apellido, direccion, pais, fecha_nacimiento):
         self.alumnoNombre = nombre
         self.alumnoApellido = apellido
         self.alumnoDNI = dni
