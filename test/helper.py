@@ -33,6 +33,13 @@ def data_curso():
         'fecha_fin': fake.date_between_dates(date_start=datetime(2023, 2, 1), date_end=datetime(2023, 2, 28)).strftime("%Y-%m-%d")        
     })
 
+def data_curso_error():
+    return json.dumps({
+        'nombre': '{} {}'.format('CURSO DE PRUEBA', randint(1, 10001)),
+        'fecha_inicio': fake.date_between_dates(date_start=datetime(2023, 2, 1), date_end=datetime(2023, 2, 28)).strftime("%Y-%m-%d"),
+        'fecha_fin': fake.date_between_dates(date_start=datetime(2023, 1, 1), date_end=datetime(2023, 1, 31)).strftime("%Y-%m-%d")        
+    })
+
 def data_matricula(id_alumno, id_curso):
     return json.dumps({
         'id_alumno': id_alumno,

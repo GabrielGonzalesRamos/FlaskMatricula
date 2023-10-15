@@ -1,36 +1,26 @@
 from parameterized import parameterized
 from test.unit.base_test import BaseTest
+from test.helper import data_curso, data_curso_error
 import json
 
 class CursoTest(BaseTest):
+    
+    curso_data = data_curso()
+
     @parameterized.expand([
-        ('CURSO DE PRUEBA', '2023-09-08', '2023-09-07', 'La fecha final del curso debe de ser mayor que la fecha de inicio'),
-        ('CURSO DE PRUEBA', '2023-01-01', '2023-01-02', 'Curso registrado'),
-        ('CURSO DE PRUEBA', '2023-01-01', '2023-01-02', 'Curso registrado previamente')
+        (curso_data, 'Curso registrado'),
+        (curso_data, 'Curso registrado previamente'),
+        (data_curso_error(), 'La fecha final del curso debe de ser mayor que la fecha de inicio')
     ])
-    def test_post_curso(self, nombre, fecha_inicio, fecha_fin, message):
-        data = json.dumps(
-            {
-                'nombre': nombre,
-                'fecha_inicio': fecha_inicio,
-                'fecha_fin': fecha_fin
-            }
-        )
-        request = self.app().post('/cursos', data = data, headers={'Content-Type': 'application/json'})
+    def test_post_curso(self, curso, message):
+        request = self.app().post('/cursos', data = curso, headers={'Content-Type': 'application/json'})
         self.assertEqual(json.loads(request.data).get('message'), message)
     
     @parameterized.expand([
-       ('CURSO DE PRUEBA', '2023-09-08', '2023-09-07',1, 'La fecha final del curso debe de ser mayor que la fecha de inicio'),
-       ('CURSO DE PRUEBA', '2023-01-01', '2023-01-02',1, 'Curso actualizado correctamente'),
-       ('CURSO DE PRUEBA', '2023-01-01', '2023-01-02',100, 'Curso no registrado')
+        (data_curso_error(), 1, 'La fecha final del curso debe de ser mayor que la fecha de inicio'),
+        (curso_data, 1, 'Curso actualizado correctamente'),
+        (curso_data, 2, 'Curso no registrado'),
     ])
-    def test_put_curso(self, nombre, fecha_inicio, fecha_fin, id, message):
-        data = json.dumps(
-            {
-                'nombre': nombre,
-                'fecha_inicio': fecha_inicio,
-                'fecha_fin': fecha_fin,
-            }
-        )
-        request = self.app().put('/curso/{}'.format(id), data = data, headers={'Content-Type': 'application/json'})
+    def test_put_curso(self, curso, id, message):
+        request = self.app().put('/curso/{}'.format(id), data = curso, headers={'Content-Type': 'application/json'})
         self.assertEqual(json.loads(request.data).get('message'), message)
