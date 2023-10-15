@@ -16,6 +16,16 @@ def data_alumno():
         'fecha_nacimiento': fake.date_between_dates(date_start=datetime(1990, 1, 1), date_end=datetime(2000, 12, 31)).strftime("%Y-%m-%d")
     })
 
+def data_alumno_error():
+    return json.dumps({
+        'dni': ''.join(choice(digits) for i in range(1, 10)),
+        'nombre': fake.first_name(),
+        'apellido': '{} {}'.format(fake.last_name(), fake.last_name()),
+        'direccion': fake.address(),
+        'pais': fake.current_country(),
+        'fecha_nacimiento': fake.date_between_dates(date_start=datetime(1990, 1, 1), date_end=datetime(2000, 12, 31)).strftime("%Y-%m-%d")
+    })
+
 def data_curso():
     return json.dumps({
         'nombre': '{} {}'.format('CURSO DE PRUEBA', randint(1, 10001)),
