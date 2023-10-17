@@ -48,12 +48,14 @@ def data_matricula(id_alumno, id_curso):
 
 def create_alumno(app):
     data = data_alumno()
-    app().post('/alumnos', data = data, headers={'Content-Type': 'application/json'})
+    request = app().post('/alumnos', data = data, headers={'Content-Type': 'application/json'})
+    return json.loads(request.data).get('content')
 
 
 def create_curso(app):
     data = data_curso()
     app().post('/cursos', data = data, headers={'Content-Type': 'application/json'})
+
 
 
 def create_matricula(app, id_alumno, id_curso):
