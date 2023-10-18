@@ -60,3 +60,4 @@ services:
       - flask-network
     depends_on:
       - flask
+      
