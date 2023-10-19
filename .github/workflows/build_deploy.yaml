@@ -1,0 +1,14 @@
+name: First Workflow
+on: 
+  push:
+    branches:
+      - 'master'
+  workflow_dispatch:
+jobs:
+    BUILD_FLASK_APPLICATION:
+        runs-on: ubuntu-22.04
+        steps:
+          - uses: actions/checkout@v4
+          - run: pip install -r requirements.txt
+
+
