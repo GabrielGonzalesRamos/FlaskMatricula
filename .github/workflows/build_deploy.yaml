@@ -5,8 +5,7 @@ on:
       - 'master'
   workflow_dispatch:
 env:
-  DATABASE_URI_DEV: ${{ secrets.DATABASE_URI_DEV  }}
-  DATABASE_URI: ${{ secrets.DATABASE_URI }}
+  DATABASE_URI_DEV: postgresql+psycopg2://postgres:mssql1Ipw@localhost:5432/matriculas
 jobs:
   TEST_FLASK_APPLICATION:
     runs-on: ubuntu-22.04
@@ -14,9 +13,12 @@ jobs:
       postgres:
         image: docker.io/library/postgres:15.4
         env:
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          # POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          # POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          # POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: mssql1Ipw
+          POSTGRES_DB: matriculas
         ports: ['5432:5432']
 
     steps:
