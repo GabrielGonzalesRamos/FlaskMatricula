@@ -5,7 +5,7 @@ on:
       - 'master'
   workflow_dispatch:
 env:
-  DATABASE_URI_DEV: 'postgresql+psycopg2://postgres:mssql1Ipw@localhost:5432/matriculas'
+  DATABASE_URI_DEV: ${{ secrets.DATABASE_URI_DEV }}
 jobs:
   TEST_FLASK_APPLICATION:
     runs-on: ubuntu-22.04
@@ -13,12 +13,9 @@ jobs:
       postgres:
         image: docker.io/library/postgres:15.4
         env:
-          # POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          # POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          # POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: mssql1Ipw
-          POSTGRES_DB: matriculas
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         ports: ['5432:5432']
 
     steps:
@@ -30,6 +27,7 @@ jobs:
         run: | 
           python -m pip install --upgrade pip setuptools wheel
           pip install -r requirements.txt
+          echo ${{ secrets.DATABASE_URI_DEV }}
           
       - name: Unittest models and routes
         run: |
