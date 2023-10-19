@@ -1,9 +1,12 @@
-name: Matricula CI/CD
+name: MATRICULA CI/CD
 on: 
   push:
     branches:
       - 'master'
   workflow_dispatch:
+env:
+  DATABASE_URI_DEV: ${{ secrets.DATABASE_URI_DEV  }}
+  DATABASE_URI: ${{ secrets.DATABASE_URI }}
 jobs:
   TEST_FLASK_APPLICATION:
     runs-on: ubuntu-22.04
