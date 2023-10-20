@@ -12,7 +12,8 @@ jobs:
     steps:
       - name: SHOWING ENV
         run: |
-          python -c "from os import environ; from dotenv import load_dotenv; load_dotenv(); print(environ.get('DATABASE_URI_DEV'))"   
+          pip install python-dotenv==1.0.0
+          python -c "from os import environ; from dotenv import load_dotenv; load_dotenv(); load_dotenv(); print(environ.get('DATABASE_URI_DEV'))"   
     # services:
     #   postgres:
     #     image: docker.io/library/postgres:15.4
