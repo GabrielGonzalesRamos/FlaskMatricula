@@ -4,43 +4,33 @@ on:
     branches:
       - 'master'
   workflow_dispatch:
-env:
-  DATABASE_URI_DEV: ${{ secrets.POSTGRES_USER }}
-  POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-  POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
 jobs:
   TEST_FLASK_APPLICATION:
     runs-on: ubuntu-22.04
-    steps:
-      - name: validate env and secrets
-        if: ${{ env.POSTGRES_DB == 'matriculas' }}
-        run: |
-          echo "Si paso la prueba de variables de entorno"
-        
-    # services:
-    #   postgres:
-    #     image: docker.io/library/postgres:15.4
-    #     env:
-    #       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-    #       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-    #       POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-    #     ports: ['5432:5432']
+    services:
+      postgres:
+        image: docker.io/library/postgres:15.4
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        ports: ['5432:5432']
 
-    # steps:
-    #   - uses: actions/checkout@v4
-    #   - uses: actions/setup-python@v4
-    #     with:
-    #       python-version: '3.10'
-    #   - name: Install requirements
-    #     run: | 
-    #       python -m pip install --upgrade pip setuptools wheel
-    #       pip install -r requirements.txt
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install requirements
+        run: | 
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r requirements.txt
           
-    #   - name: Unittest models and routes
-    #     run: |
-    #       python -m unittest discover -s test/integration/models/ -v
-    #       python3 -m unittest discover -s test/integration/routes/ -v
+      - name: Unittest models and routes
+        run: |
+          echo "DATABASE_URI_DEV=${{ secrets.POSTGRES_USER }}" >> "$GITHUB_ENV"
+          python -m unittest discover -s test/integration/models/ -v
+          python3 -m unittest discover -s test/integration/routes/ -v
 
 
 
