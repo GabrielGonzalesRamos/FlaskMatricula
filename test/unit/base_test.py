@@ -10,8 +10,6 @@ class BaseTest(TestCase):
     @classmethod
     def setUpClass(cls):
         app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI_DEV')
-        print(environ.get('DATABASE_URI_DEV'))
-        print(environ.get)
         base_de_datos.create_all(app=app)
 
     @classmethod

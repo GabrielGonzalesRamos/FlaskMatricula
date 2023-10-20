@@ -28,7 +28,7 @@ jobs:
           
       - name: Unittest models and routes
         env: 
-          DATABASE_URI_DEV: ${{ secrets.DATABASE_URI_DEV }}
+          DATABASE_URI_DEV: 'postgresql+psycopg2://postgres:mssql1Ipw@localhost:5432/matriculas'
         run: |
           python -m unittest discover -s test/integration/models/ -v
           python3 -m unittest discover -s test/integration/routes/ -v
