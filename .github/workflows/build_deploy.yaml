@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Show Enviroments
         run: env
+      - name: Runing a deleteme.py
+        run: python deleteme.py
     # services:
     #   postgres:
     #     image: docker.io/library/postgres:15.4
