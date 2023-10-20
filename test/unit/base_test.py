@@ -1,10 +1,7 @@
 from os import environ
-from dotenv import load_dotenv
 from unittest import TestCase
 from app import app 
 from config.conexion_bd import base_de_datos
-
-load_dotenv()
 
 class BaseTest(TestCase):
     @classmethod
