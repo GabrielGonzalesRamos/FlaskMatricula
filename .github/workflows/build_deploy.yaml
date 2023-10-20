@@ -4,8 +4,6 @@ on:
     branches:
       - 'master'
   workflow_dispatch:
-env:
-  DATABASE_URI_DEV: ${{ secrets.DATABASE_URI_DEV }}
 jobs:
   TEST_FLASK_APPLICATION:
     runs-on: ubuntu-22.04
@@ -27,9 +25,10 @@ jobs:
         run: | 
           python -m pip install --upgrade pip setuptools wheel
           pip install -r requirements.txt
-          echo ${{ secrets.DATABASE_URI_DEV }}
           
       - name: Unittest models and routes
+        env: 
+          DATABASE_URI_DEV: ${{ secrets.DATABASE_URI_DEV }}
         run: |
           python -m unittest discover -s test/integration/models/ -v
           python3 -m unittest discover -s test/integration/routes/ -v
