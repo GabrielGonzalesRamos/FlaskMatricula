@@ -1,16 +1,12 @@
 from parameterized import parameterized
 from test.unit.base_test import BaseTest
-from test.helper import data_alumno, data_alumno_error, create_alumno
+from test.helper import data_alumno, data_alumno_error
 import json
 
 class AlumnoTest(BaseTest):
 
-    # def setUp(self):
-    #     super().setUp()
-    #     self.alumno = create_alumno(self.app)
-    #     _, self.dni, self.nombre, self.apellido, _, self.pais, _ = list(create_alumno(self.app).values())
-
     alumno_data = data_alumno()
+
     @parameterized.expand([
         (alumno_data, 'Alumno registrado'),
         (alumno_data, 'Alumno registrado previamente'),
