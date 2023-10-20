@@ -4,6 +4,8 @@ on:
     branches:
       - 'master'
   workflow_dispatch:
+env:
+  DATABASE_URI_DEV: 'postgresql+psycopg2://postgres:mssql1Ipw@localhost:5432/matriculas'
 jobs:
   TEST_FLASK_APPLICATION:
     runs-on: ubuntu-22.04
@@ -23,12 +25,11 @@ jobs:
           python-version: '3.10'
       - name: Install requirements
         run: | 
+          echo $DATABASE_URI_DEV
           python -m pip install --upgrade pip setuptools wheel
           pip install -r requirements.txt
           
       - name: Unittest models and routes
-        env: 
-          DATABASE_URI_DEV: 'postgresql+psycopg2://postgres:mssql1Ipw@localhost:5432/matriculas'
         run: |
           python -m unittest discover -s test/integration/models/ -v
           python3 -m unittest discover -s test/integration/routes/ -v
