@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: SHOWING ENV
         run: |
-          python -c "import os; print(os.getenv('GITHUB_ENV'))"   
-          python -c "import os; print(os.environ)"
+          python -c "import os; print(os.getenv('GITHUB_ENV.DATABASE_URI_DEV'))"   
+          # python -c "import os; print(os.environ)"
     # services:
     #   postgres:
     #     image: docker.io/library/postgres:15.4
