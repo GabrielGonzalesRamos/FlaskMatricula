@@ -30,8 +30,8 @@ jobs:
           
       - name: Unittest models and routes
         run: |
-          python -m unittest discover -s test/integration/models/ -v
-          python3 -m unittest discover -s test/integration/routes/ -v
+          unittest discover -s test/integration/models/ -v
+          unittest discover -s test/integration/routes/ -v
 
 
 
