@@ -65,11 +65,12 @@ jobs:
           pip install -r requirements.txt
       - name: Deploy flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
+      - run: | 
+          flyctl env set ENVIRONMENT=PROD 
+          flyctl env set DATABASE_URI_PROD=${{ secrets.DATABASE_URI_PROD }} 
+          flyctl set deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-          ENVIRONMENT: PROD
-          DATABASE_URI_PROD: ${{ secrets.DATABASE_URI_PROD }}
 
         
         
