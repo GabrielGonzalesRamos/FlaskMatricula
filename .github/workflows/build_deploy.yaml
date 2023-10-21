@@ -72,6 +72,8 @@ jobs:
     needs: BUILD_DOCKER_CONTAINER
     runs-on: ubuntu-22.04
     steps:
+      - name: Download code
+        uses: actions/checkout@v4
       - name: Deploy flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
