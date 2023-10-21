@@ -4,11 +4,12 @@ on:
     branches:
       - 'master'
   workflow_dispatch:
-env:
-  DATABASE_URI_DEV: ${{ secrets.DATABASE_URI_DEV }}
 jobs:
   TEST_FLASK_APPLICATION:
     runs-on: ubuntu-22.04
+    env:
+      ENVIRONMENT: DEV
+      DATABASE_URI_DEV: ${{ secrets.DATABASE_URI_DEV }}
     services:
       postgres:
         image: docker.io/library/postgres:15.4

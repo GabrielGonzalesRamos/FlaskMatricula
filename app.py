@@ -26,7 +26,7 @@ swagger_blueprint=get_swaggerui_blueprint(
 app = Flask(__name__)
 
 app.register_blueprint(swagger_blueprint)
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI_PROD') if environ.get('ENVIRONMENT') == 'PROD' else environ.get('DATABASE_URI_DEV')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 base_de_datos.init_app(app)
 base_de_datos.create_all(app=app)
