@@ -7,6 +7,7 @@ app = "matriculas"
 primary_region = "scl"
 
 [build]
+  image = "docker.io/gabrielgonzales/gg-dev:GDR-001"
 
 [env]
 PHX_HOST = "matriculas.fly.dev"
