@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       ENVIRONMENT: DEV
+      DATABASE_URI_DEV: ${{ secrets.DATABASE_URI_DEV }}
     services:
       postgres:
         image: docker.io/library/postgres:15.4
@@ -45,6 +46,7 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       ENVIRONMENT: PROD
+      DATABASE_URI_PROD: ${{ secrets.DATABASE_URI_PROD }}
     steps:
       - name: Download code
         uses: actions/checkout@v4
