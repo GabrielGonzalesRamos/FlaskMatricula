@@ -12,6 +12,17 @@ jobs:
         uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          username: |
+            Pull Request notifier
+          color: 0x1B385E
+          content: |
+            👋 Hey <@${{ fromJSON(vars.IDS_GITHUB_TO_DISCORD)[github.event.pull_request.user.login].discord_id }}>, there's a new review available for your PR 💬
+          description: |
+            Go and [check it now](${{ github.event.pull_request.self }}) !
+          title: |
+            Pull Request: ${{ github.event.pull_request.title }}
+          url: ${{ github.event.pull_request.self }}
+          noprefix: true
           # status: ${{ job.status }}
           # content: "@everyone"
           # title: "TESTING_DISCORD_BOT"
