@@ -13,10 +13,10 @@ jobs:
         if: always()
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          status: ${{ job.status }}
-          content: "@everyone"
-          title: "TESTING_DISCORD_BOT"
-          description: "Build and deploy to GitHub Pages"
+          # status: ${{ job.status }}
+          # content: "@everyone"
+          # title: "TESTING_DISCORD_BOT"
+          # description: "Build and deploy to GitHub Pages"
 
 
   # TEST_FLASK_APPLICATION:
