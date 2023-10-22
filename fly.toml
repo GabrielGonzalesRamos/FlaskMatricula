@@ -9,6 +9,9 @@ primary_region = "scl"
 [build]
   image = "docker.io/gabrielgonzales/gg-dev:GDR-001"
 
+[deploy]
+  strategy = "canary"
+
 [env]
 PHX_HOST = "matriculas.fly.dev"
 PORT = "5000"

@@ -5,102 +5,78 @@ on:
       - 'master'
   workflow_dispatch:
 jobs:
-  TESTING_DISCORD_BOT:
+  TEST_FLASK_APPLICATION:
+    runs-on: ubuntu-22.04
+    env:
+      ENVIRONMENT: DEV
+      DATABASE_URI_DEV: ${{ secrets.DATABASE_URI_DEV }}
+    services:
+      postgres:
+        image: docker.io/library/postgres:15.4
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        ports: ['5432:5432']
+    steps:
+      - name: Download code
+        uses: actions/checkout@v4
+      - name: Set up python version '3.10'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Caching dependencies
+        uses: actions/cache@v3
+        with: 
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+      - name: Install requirements
+        run: | 
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r requirements.txt
+
+      - name: Unittest models and routes
+        run: |
+          python -m unittest discover -s test/integration/models/ -v
+          python -m unittest discover -s test/integration/routes/ -v
+  
+  BUILD_DOCKER_CONTAINER:
+    needs: TEST_FLASK_APPLICATION
     runs-on: ubuntu-22.04
     steps:
-      - name: Using actions status discord
-        uses: sarisia/actions-status-discord@v1
+      - name: Docker login
+        run: docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Download code
+        uses: actions/checkout@v4
+      - name: Set up python version '3.10'
+        uses: actions/setup-python@v4
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          username: |
-            Pull Request notifier
-          color: 0x1B385E
-          content: |
-            👋 Hey <@${{ fromJSON(vars.IDS_GITHUB_TO_DISCORD)[github.event.pull_request.user.login].discord_id }}>, there's a new review available for your PR 💬
-          description: |
-            Go and [check it now](${{ github.event.pull_request.self }}) !
-          title: |
-            Pull Request: ${{ github.event.pull_request.title }}
-          url: ${{ github.event.pull_request.self }}
-          noprefix: true
-          # status: ${{ job.status }}
-          # content: "@everyone"
-          # title: "TESTING_DISCORD_BOT"
-          # description: "Build and deploy to GitHub Pages"
+          python-version: '3.10'
+      - name: Caching dependencies
+        uses: actions/cache@v3
+        with: 
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+      - name: Install requirements
+        run: | 
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r requirements.txt
+      - name: Creating docker image
+        run: docker build --no-cache -t docker.io/gabrielgonzales/gg-dev:GDR-001 .
+      - name: Push docker image
+        run: docker push docker.io/gabrielgonzales/gg-dev:GDR-001
 
-
-  # TEST_FLASK_APPLICATION:
-  #   runs-on: ubuntu-22.04
-  #   env:
-  #     ENVIRONMENT: DEV
-  #     DATABASE_URI_DEV: ${{ secrets.DATABASE_URI_DEV }}
-  #   services:
-  #     postgres:
-  #       image: docker.io/library/postgres:15.4
-  #       env:
-  #         POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-  #         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-  #         POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-  #       ports: ['5432:5432']
-  #   steps:
-  #     - name: Download code
-  #       uses: actions/checkout@v4
-  #     - name: Set up python version '3.10'
-  #       uses: actions/setup-python@v4
-  #       with:
-  #         python-version: '3.10'
-  #     - name: Caching dependencies
-  #       uses: actions/cache@v3
-  #       with: 
-  #         path: ~/.cache/pip
-  #         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-  #     - name: Install requirements
-  #       run: | 
-  #         python -m pip install --upgrade pip setuptools wheel
-  #         pip install -r requirements.txt
-
-  #     - name: Unittest models and routes
-  #       run: |
-  #         python -m unittest discover -s test/integration/models/ -v
-  #         python -m unittest discover -s test/integration/routes/ -v
-  
-  # BUILD_DOCKER_CONTAINER:
-  #   needs: TEST_FLASK_APPLICATION
-  #   runs-on: ubuntu-22.04
-  #   steps:
-  #     - name: Docker login
-  #       run: docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKERHUB_TOKEN }}
-  #     - name: Download code
-  #       uses: actions/checkout@v4
-  #     - name: Set up python version '3.10'
-  #       uses: actions/setup-python@v4
-  #       with:
-  #         python-version: '3.10'
-  #     - name: Caching dependencies
-  #       uses: actions/cache@v3
-  #       with: 
-  #         path: ~/.cache/pip
-  #         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-  #     - name: Install requirements
-  #       run: | 
-  #         python -m pip install --upgrade pip setuptools wheel
-  #         pip install -r requirements.txt
-  #     - name: Creating docker image
-  #       run: docker build --no-cache -t docker.io/gabrielgonzales/gg-dev:GDR-001 .
-  #     - name: Push docker image
-  #       run: docker push docker.io/gabrielgonzales/gg-dev:GDR-001
-
-  # DEPLOY_FLASK_APPLICATION:
-  #   needs: BUILD_DOCKER_CONTAINER
-  #   runs-on: ubuntu-22.04
-  #   steps:
-  #     - name: Download code
-  #       uses: actions/checkout@v4
-  #     - name: Deploy flyctl
-  #       uses: superfly/flyctl-actions/setup-flyctl@master
-  #     - run: flyctl deploy --remote-only
-  #       env:
-  #         FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  DEPLOY_FLASK_APPLICATION:
+    needs: BUILD_DOCKER_CONTAINER
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Download code
+        uses: actions/checkout@v4
+      - name: Deploy flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
         
         
