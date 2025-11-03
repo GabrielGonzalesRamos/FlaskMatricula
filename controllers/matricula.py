@@ -4,6 +4,8 @@ from models.alumno_curso import AlumnoCursoModel
 from models.alumno import AlumnoModel
 from models.curso import CursoModel
 from serializers.serializerMatricula import serializerMatricula
+
+
 import copy
 
 class MatriculaController(Resource):

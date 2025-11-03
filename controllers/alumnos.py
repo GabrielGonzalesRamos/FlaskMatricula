@@ -2,26 +2,29 @@ from flask_restful import Resource
 from models.alumno import AlumnoModel
 from serializers.serializerAlumnos import serializerAlumnos, serializerBusqueda
 from config.conexion_bd import base_de_datos
+from elasticapm import get_client
 import copy
 
 class AlumnosController(Resource):
-
     def get(self):
         alumnos = base_de_datos.session.query(AlumnoModel).all()
         if alumnos:
             alumnos_cursos = [i.json() for i in alumnos]
             cantidad_cursos = [len(i.alumnoRegistrados) for i in alumnos]
+            get_client().capture()
             return {
                 'success': True,
                 'message': 'Cantidad total de alumnos {}'.format(base_de_datos.session.query(AlumnoModel).count()),
                 'content': sorted([{**j, 'cantidad_cursos_matriculados': i} for i, j in zip(cantidad_cursos, alumnos_cursos)], key=lambda x: x['cantidad_cursos_matriculados'], reverse=True)
                 }, 200
         else:
+            get_client().capture_exception()
             return {
                 'success': False,
                 'message': 'No se encontraron alumnos',
                 'content': None
             }, 404
+        
         
     def post(self):
         data = serializerAlumnos.parse_args()
@@ -47,7 +50,6 @@ class AlumnosController(Resource):
                 'message': 'Alumno registrado',
                 }, 201
         except Exception as E:
-            print(E)
             return {
                 'success': False,
                 'content': None,
@@ -65,6 +67,7 @@ class AlumnoController(Resource):
                 'message': 'Alumno {} {} matriculado'.format(alumno.alumnoNombre, alumno.alumnoApellido)
                 }, 200
         else:
+            get_client().capture_exception()
             return {
                 'success': False,
                 'content': None,

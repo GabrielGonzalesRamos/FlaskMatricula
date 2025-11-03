@@ -1,4 +1,4 @@
-version: '3.3'
+version: "3.3"
 networks:
   flask-network:
     driver: bridge
@@ -14,11 +14,23 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=${DATABASE_NAME}
     volumes:
-    - ~/Documentos/TECSUP/C1/FGD/S15/psql/data:/var/lib/postgresql/data
+      - ~/Documentos/TECSUP/C1/FGD/S15/psql/data:/var/lib/postgresql/data
     networks:
       - flask-network
     healthcheck:
-      test: ["CMD", "psql", "-U", "${DATABASE_USER}", "-w", "${DATABASE_PASSWORD}", "-d", "${DATABASE_NAME}", "-c", "SELECT 1"]
+      test:
+        [
+          "CMD",
+          "psql",
+          "-U",
+          "${DATABASE_USER}",
+          "-w",
+          "${DATABASE_PASSWORD}",
+          "-d",
+          "${DATABASE_NAME}",
+          "-c",
+          "SELECT 1",
+        ]
       timeout: 20s
       retries: 3
   # mssql:
@@ -42,7 +54,7 @@ services:
     image: docker.io/gabrielgonzales/gg-dev:GDR-001
     container_name: flask
     ports:
-      - 5000:5000
+      - 8080:8080
     environment:
       - DATABASE_URI_PROD=${DATABASE_URI_PROD}
     networks:
@@ -55,9 +67,8 @@ services:
     environment:
       - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
       - REGION=us
-    command: 'http flask:5000'
+    command: "http flask:5000"
     networks:
       - flask-network
     depends_on:
       - flask
-      
